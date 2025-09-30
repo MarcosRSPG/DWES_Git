@@ -1,37 +1,7 @@
 <?php 
-
-// A) Crea un script que determine si un número no es primo y, además, si precede a otro que sí es primo.
-
-function comprobarPrimo($num) {
-	for ($i=$num - 1; $i > 1; $i--) { 
-		if ($num%$i==0){
-			return false;
-		}
-	}
-	return true;
-}
-
-$numero = 27;
-
-if (comprobarPrimo((int)$numero)) {
-	echo "El número $numero es primo";
-}else{
-	echo "El número $numero no es primo";
-}
-$numero--;
-if (comprobarPrimo((int)$numero)) {
-	echo "<br>El número $numero es primo";
-}else{
-	echo "<br>El número $numero tampoco es primo";
-}
-
-
-
 // B) Genera una estructura para que haya al menos una clave cuyo valor represente uno de estos tipos de datos:
 
 define("NUMERO_LIBROS", 10);
-
-echo "<br>";
 
 function generarDato($tipo){
 	switch ($tipo) {
@@ -70,8 +40,8 @@ for ($i=0; $i < NUMERO_LIBROS; $i++) {
 }
 
 foreach ($catalogo as $libro) {
-	echo "<br>";
 	foreach ($libro as $key => $value) {
 		echo "$key : $value <br>";
 	}
+	echo "<br>";
 }
