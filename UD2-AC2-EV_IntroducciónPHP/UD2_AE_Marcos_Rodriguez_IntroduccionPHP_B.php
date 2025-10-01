@@ -1,5 +1,5 @@
 <?php
-	require 'PHP_UD2_AE_Marcos_Rodriguez_IntroduccionPHP_B.php'; 
+	require 'util/PHP_UD2_AE_Marcos_Rodriguez_IntroduccionPHP_B.php'; 
 ?>
 
 <!DOCTYPE html>
@@ -8,7 +8,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Ejercicio B</title>
-	<link rel="stylesheet" href="CSS_UD2_AE_Marcos_Rodriguez_IntroduccionPHP_B.css">
+	<link rel="stylesheet" href="util/CSS_UD2_AE_Marcos_Rodriguez_IntroduccionPHP_B.css">
 </head>
 <body>
 	<h1>Ejercicio B</h1>
