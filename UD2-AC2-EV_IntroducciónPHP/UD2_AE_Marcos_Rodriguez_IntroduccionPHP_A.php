@@ -17,7 +17,7 @@ if (comprobarPrimo((int)$numero)) {
 }else{
 	echo "El número $numero no es primo";
 }
-$numero--;
+$numero++;
 if (comprobarPrimo((int)$numero)) {
 	echo "<br>El número $numero es primo";
 }else{

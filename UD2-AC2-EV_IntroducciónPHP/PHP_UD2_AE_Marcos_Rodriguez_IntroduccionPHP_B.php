@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 // B) Genera una estructura para que haya al menos una clave cuyo valor represente uno de estos tipos de datos:
 
 define("NUMERO_LIBROS", 10);
@@ -38,10 +39,4 @@ for ($i=0; $i < NUMERO_LIBROS; $i++) {
 );
 	$catalogo[] = $libro;
 }
-
-foreach ($catalogo as $libro) {
-	foreach ($libro as $key => $value) {
-		echo "$key : $value <br>";
-	}
-	echo "<br>";
-}
+?>
