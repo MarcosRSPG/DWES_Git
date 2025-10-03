@@ -10,9 +10,12 @@ function comprobarPrimo($num) {
 	return true;
 }
 
-$numero = 27;
-
-if (comprobarPrimo((int)$numero)) {
+$numero = "hola";
+try {
+	if (!is_numeric($numero)) {
+		throw new Exception("El valor $numero no es un número");
+	}
+	if (comprobarPrimo((int)$numero) && $numero > 1) {
 	echo "El número $numero es primo";
 }else{
 	echo "El número $numero no es primo";
@@ -22,4 +25,8 @@ if (comprobarPrimo((int)$numero)) {
 	echo "<br>El número $numero es primo";
 }else{
 	echo "<br>El número $numero tampoco es primo";
+}
+} catch (Exception $e) {
+	echo "Error: ".$e->getMessage();
+	exit();
 }
