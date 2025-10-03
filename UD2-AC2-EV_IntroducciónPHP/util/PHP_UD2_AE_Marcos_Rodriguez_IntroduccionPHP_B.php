@@ -22,10 +22,9 @@ function generarDato($tipo){
 			return $num;
 			break;
 		case 'fecha':
-			return rand(1, 28)."/".rand(1, 9)."/"."2025";
+			return mt_rand(strtotime("2025-01-01"), strtotime("2025-12-31"));
 			break;
 		default:
-			// code...
 			break;
 	}
 }

@@ -31,7 +31,7 @@
 			echo "<td>".$libro['titulo']."</td>";
 			echo "<td>".$libro['n_paginas']."</td>";
 			echo "<td>".$libro['precio']." €</td>";
-			echo "<td>".$libro['fecha_publicacion']."</td>";
+			echo "<td>".date('d/m/Y',$libro['fecha_publicacion'])."</td>";
 			echo "</tr>";
 		}
 		 ?>
