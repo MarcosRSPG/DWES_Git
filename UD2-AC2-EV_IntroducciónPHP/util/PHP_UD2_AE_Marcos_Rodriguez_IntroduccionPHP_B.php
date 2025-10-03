@@ -6,6 +6,7 @@ define("NUMERO_LIBROS", 10);
 
 function generarDato($tipo){
 	switch ($tipo) {
+		// B1)
 		case 'cadena':
 			$cadena = "";
 			for ($i=0; $i < rand(1, 10); $i++) { 
@@ -14,13 +15,16 @@ function generarDato($tipo){
 			}
 			return $cadena;
 			break;
+		// B2)
 		case 'entero':
 			return rand(100, 99999999);
 			break;
+		// B3)
 		case 'decimal':
 			$num= rand(1, 999) + (rand(0, 99999) / 100000);
 			return $num;
 			break;
+		// B4)
 		case 'fecha':
 			return mt_rand(strtotime("2025-01-01"), strtotime("2025-12-31"));
 			break;
