@@ -32,13 +32,19 @@ function generarDato($tipo){
 			break;
 	}
 }
+$estructura = array(
+	"titulo" => "cadena", 
+	"n_paginas" => "entero", 
+	"precio" => "decimal", 
+	"fecha_publicacion"=> "fecha",
+);
 $catalogo = array();
 for ($i=0; $i < NUMERO_LIBROS; $i++) { 
 	$libro = array(
-    "titulo" => generarDato("cadena"),
-    "n_paginas" => generarDato("entero"),
-    "precio" => generarDato("decimal"),
-    "fecha_publicacion" => generarDato("fecha"),
+    "titulo" => generarDato($estructura["titulo"]),
+    "n_paginas" => generarDato($estructura["n_paginas"]),
+    "precio" => generarDato($estructura["precio"]),
+    "fecha_publicacion" => generarDato($estructura["fecha_publicacion"]),
 );
 	$catalogo[] = $libro;
 }
