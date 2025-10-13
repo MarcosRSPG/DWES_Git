@@ -2,12 +2,13 @@
 
 require './Acciones.php';
 require './Hobby.php';
-class Videojuego extends Hobby implements Acciones
+class jugarVideojuegos extends Hobby implements Acciones
 {
     private $genero;
     private $plataforma;
     private $fechaLanzamiento;
     private $precio;
+    private array $acciones;
 
     public function __construct($name, $plataforma, $genero, $fechaLanzamiento, $precio)
     {
@@ -80,5 +81,8 @@ class Videojuego extends Hobby implements Acciones
 
     public function actualizar(array $a)
     {
+        echo 'Actualizando acciones: ';
+        print_r($a);
+        $this->acciones = $a;
     }
 }
