@@ -1,10 +1,10 @@
 <?php
 
-require './jugarVideojuego.php';
+require_once './jugarVideojuego.php';
 
 class Ayuda
 {
-    private function generarCadena(): string
+    private static function generarCadena(): string
     {
         $cadena = '';
         $len = random_int(1, 10);
@@ -16,19 +16,19 @@ class Ayuda
         return $cadena;
     }
 
-    private function generarEntero(): int
+    private static function generarEntero(): int
     {
         return random_int(100, 99999999);
     }
 
-    private function generarDecimal(): float
+    private static function generarDecimal(): float
     {
         $num = random_int(1, 999) + (random_int(0, 99) / 100);
 
         return (float) $num;
     }
 
-    private function generarFecha(): int
+    private static function generarFecha(): int
     {
         $inicio = strtotime('2025-01-01');
         $fin = strtotime('2025-12-31');
@@ -36,13 +36,13 @@ class Ayuda
         return random_int($inicio, $fin);
     }
 
-    private function generarDato(string $tipo)
+    private static function generarDato(string $tipo)
     {
         return match ($tipo) {
-            'cadena' => $this->generarCadena(),
-            'entero' => $this->generarEntero(),
-            'decimal' => $this->generarDecimal(),
-            'fecha' => $this->generarFecha(),
+            'cadena' => self::generarCadena(),
+            'entero' => self::generarEntero(),
+            'decimal' => self::generarDecimal(),
+            'fecha' => self::generarFecha(),
             default => null,
         };
     }
@@ -51,7 +51,7 @@ class Ayuda
     {
         $catalogo = [];
         for ($i = 0; $i < $num; ++$i) {
-            $catalogo[] = new jugarVideojuegos(generarDato('cadena'), generarDato('cadena'), generarDato('cadena'), generarDato('fecha'), generarDato('decimal'));
+            $catalogo[] = new jugarVideojuegos(self::generarDato('cadena'), self::generarDato('cadena'), self::generarDato('cadena'), self::generarDato('fecha'), self::generarDato('decimal'));
         }
 
         return $catalogo;

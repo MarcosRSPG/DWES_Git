@@ -12,4 +12,8 @@ abstract class Hobby
     abstract public function getName();
 
     abstract public function setName($name);
+
+    abstract public function __toString();
+
+    abstract public function __destruct();
 }
