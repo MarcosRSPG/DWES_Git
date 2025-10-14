@@ -1,7 +1,7 @@
 <?php
 
 require_once './jugarVideojuego.php';
-
+require_once './andar.php';
 class Ayuda
 {
     private static function generarCadena(): string
@@ -42,7 +42,7 @@ class Ayuda
             'cadena' => self::generarCadena(),
             'entero' => self::generarEntero(),
             'decimal' => self::generarDecimal(),
-            'fecha' => self::generarFecha(),
+            'fecha' => date('d/m/Y', self::generarFecha()),
             default => null,
         };
     }
@@ -55,5 +55,15 @@ class Ayuda
         }
 
         return $catalogo;
+    }
+
+    public static function generarRuta($num)
+    {
+        $rutas = [];
+        for ($i = 0; $i < $num; ++$i) {
+            $rutas[] = new Andar(self::generarDato('cadena'));
+        }
+
+        return $rutas;
     }
 }

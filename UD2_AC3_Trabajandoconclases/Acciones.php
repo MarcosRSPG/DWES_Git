@@ -2,7 +2,7 @@
 
 interface Acciones
 {
-    public function iniciar();
+    public function iniciar($tiempo);
 
     public function detener();
 

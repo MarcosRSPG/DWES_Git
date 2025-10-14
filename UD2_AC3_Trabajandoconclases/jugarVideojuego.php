@@ -5,7 +5,10 @@ require_once './Hobby.php';
 class jugarVideojuegos extends Hobby implements Acciones
 {
     public const IVA = 0.21;
-    public static int $totalJuegosCreados = 0;
+    public static $totalJuegosCreados = 0;
+    public $tiempo = 0;
+    public const MINTIEMPO = 2;
+    public const MAXTIEMPO = 10;
     private $genero;
     private $plataforma;
     private $fechaLanzamiento;
@@ -77,7 +80,6 @@ class jugarVideojuegos extends Hobby implements Acciones
 
     public static function setExtraKeys(array $keys): void
     {
-        // Normalizamos a string, quitamos duplicados y reindexamos
         self::$extraKeys = array_values(
             array_unique(
                 array_map('strval', $keys)
@@ -89,7 +91,7 @@ class jugarVideojuegos extends Hobby implements Acciones
     {
         if (in_array($name, self::$extraKeys, true)) {
             if (!array_key_exists($name, $this->extras)) {
-                $this->extras[$name] = $this->fabricarValorExtra($name); // cache en memoria
+                $this->extras[$name] = $this->fabricarValorExtra($name);
             }
 
             return $this->extras[$name];
@@ -143,14 +145,25 @@ class jugarVideojuegos extends Hobby implements Acciones
         return $s;
     }
 
-    public function iniciar()
+    public function iniciar($tiempo)
     {
-        echo 'Iniciando videojuego '.$this->getName().' para '.$this->getPlataforma().' del tipo '.$this->getGenero().' lanzado el '.$this->getFechaLanzamiento().' con un precio de '.$this->getPrecio().'€.';
+        $this->tiempo = $tiempo;
+        echo ($this->tiempo > self::MAXTIEMPO)
+            ? 'Has jugado demasiado tiempo ya'
+            : (($this->tiempo < self::MINTIEMPO)
+                ? 'Debes jugar más'
+                : 'Iniciando videojuego '.$this->getName().
+                  ' para '.$this->getPlataforma().
+                  ' del tipo '.$this->getGenero().
+                  ' lanzado el '.$this->getFechaLanzamiento().
+                  ' con un precio de '.$this->getPrecio().'€.');
     }
 
     public function detener()
     {
         echo 'Deteniendo videojuego '.$this->getName().' para '.$this->getPlataforma().' del tipo '.$this->getGenero().' lanzado el '.$this->getFechaLanzamiento().' con un precio de '.$this->getPrecio().'€.';
+        echo '<br>';
+        echo 'Tiempo acumulado de '.$this->tiempo;
     }
 
     public function actualizar(array $a)
@@ -218,5 +231,10 @@ class jugarVideojuegos extends Hobby implements Acciones
     public function __destruct()
     {
         $this->destroy();
+    }
+
+    public function cambiarEstatico()
+    {
+        $this->totalJuegosCreados = 0;
     }
 }
