@@ -27,7 +27,7 @@ echo 'Videojuegos Creados: '.$hobbies[0]::$totalJuegosCreados;
 echo '<br>';
 // $hobbies[0]::IVA = 8;      No se puede cambiar una constante
 try {
-    $hobbies[0]->cambiarEstatico();
+    $hobbies->cambiarEstatico();
 } catch (Error $e) {
     echo 'No se puede cambiar un estático con un metodo de la clase';
 }

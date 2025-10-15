@@ -147,7 +147,7 @@ class jugarVideojuegos extends Hobby implements Acciones
 
     public function iniciar($tiempo)
     {
-        $this->tiempo = $tiempo;
+        $this->tiempo += $tiempo;
         echo ($this->tiempo > self::MAXTIEMPO)
             ? 'Has jugado demasiado tiempo ya'
             : (($this->tiempo < self::MINTIEMPO)
