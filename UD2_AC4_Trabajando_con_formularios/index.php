@@ -1,12 +1,29 @@
 <?php
 require_once './php/jugarVideojuego.php';
 $nuevoVideojuego = new jugarVideojuegos();
+
+if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+    $nuevoVideojuego->setName($_GET['nombre']);
+    $nuevoVideojuego->setPlataforma($_GET['plataforma']);
+    $nuevoVideojuego->setGenero($_GET['genero']);
+    $nuevoVideojuego->setFechaLanzamiento($_GET['fechaLanzamiento']);
+    $nuevoVideojuego->setPrecio(floatval($_GET['precio']));
+
+    $mensaje = 'Nuevo videojuego añadido: '.PHP_EOL.$nuevoVideojuego->getName().PHP_EOL.$nuevoVideojuego->getPlataforma().PHP_EOL.$nuevoVideojuego->getGenero().PHP_EOL.
+    $nuevoVideojuego->getFechaLanzamiento().PHP_EOL.$nuevoVideojuego->getPrecio().PHP_EOL.implode($nuevoVideojuego->getExtras());
+
+    error_log($mensaje, LOG_INFO);
+
+    $contenido = nl2br(htmlspecialchars($mensaje, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'));
+    echo '<div class="alert" role="alert">'.$contenido.'</div>';
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/styles.css">
     <title>Trabajando con formularios</title>
   </head>
   <body>
@@ -14,9 +31,9 @@ $nuevoVideojuego = new jugarVideojuegos();
       <h1>Trabajando con formularios</h1>
     </header>
     <main>
-      <form action="#" method="post">
+      <form action="#" method="get">
         <label for="nombre">Título:</label>
-        <input type="text" id="nombre" name="nombre" required /><br /><br />
+        <input type="text" id="nombre" name="nombre"  required /><br /><br />
 
         <label for="plataforma">Plataforma:</label>
         <input type="text" id="plataforma" name="plataforma" required /><br /><br />

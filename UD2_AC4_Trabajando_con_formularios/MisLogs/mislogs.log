@@ -1,43 +1,133 @@
-[22-Oct-2025 19:34:00 UTC] PHP Warning:  require_once(./Acciones.php): Failed to open stream: No such file or directory in C:\Users\Vespertino\Documents\DAW2_Marcos\DesarrolloServidor\DWES\UD2_AC4_Trabajando con formularios\php\jugarVideojuego.php on line 3
-[22-Oct-2025 19:34:00 UTC] PHP Fatal error:  Uncaught Error: Failed opening required './Acciones.php' (include_path='.;C:\php\pear') in C:\Users\Vespertino\Documents\DAW2_Marcos\DesarrolloServidor\DWES\UD2_AC4_Trabajando con formularios\php\jugarVideojuego.php:3
-Stack trace:
-#0 C:\Users\Vespertino\Documents\DAW2_Marcos\DesarrolloServidor\DWES\UD2_AC4_Trabajando con formularios\index.php(2): require_once()
-#1 {main}
-  thrown in C:\Users\Vespertino\Documents\DAW2_Marcos\DesarrolloServidor\DWES\UD2_AC4_Trabajando con formularios\php\jugarVideojuego.php on line 3
-[22-Oct-2025 19:37:17 UTC] PHP Warning:  require_once(../php/Acciones.php): Failed to open stream: No such file or directory in C:\Users\Vespertino\Documents\DAW2_Marcos\DesarrolloServidor\DWES\UD2_AC4_Trabajando con formularios\php\jugarVideojuego.php on line 4
-[22-Oct-2025 19:37:17 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '../php/Acciones.php' (include_path='.;C:\php\pear') in C:\Users\Vespertino\Documents\DAW2_Marcos\DesarrolloServidor\DWES\UD2_AC4_Trabajando con formularios\php\jugarVideojuego.php:4
-Stack trace:
-#0 C:\Users\Vespertino\Documents\DAW2_Marcos\DesarrolloServidor\DWES\UD2_AC4_Trabajando con formularios\index.php(2): require_once()
-#1 {main}
-  thrown in C:\Users\Vespertino\Documents\DAW2_Marcos\DesarrolloServidor\DWES\UD2_AC4_Trabajando con formularios\php\jugarVideojuego.php on line 4
-[22-Oct-2025 19:39:53 UTC] PHP Warning:  require_once(../php/Acciones.php): Failed to open stream: No such file or directory in C:\Users\Vespertino\Documents\DAW2_Marcos\DesarrolloServidor\DWES\UD2_AC4_Trabajando_con_formularios\php\jugarVideojuego.php on line 4
-[22-Oct-2025 19:39:53 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '../php/Acciones.php' (include_path='.;C:\php\pear') in C:\Users\Vespertino\Documents\DAW2_Marcos\DesarrolloServidor\DWES\UD2_AC4_Trabajando_con_formularios\php\jugarVideojuego.php:4
-Stack trace:
-#0 C:\Users\Vespertino\Documents\DAW2_Marcos\DesarrolloServidor\DWES\UD2_AC4_Trabajando_con_formularios\index.php(2): require_once()
-#1 {main}
-  thrown in C:\Users\Vespertino\Documents\DAW2_Marcos\DesarrolloServidor\DWES\UD2_AC4_Trabajando_con_formularios\php\jugarVideojuego.php on line 4
-[22-Oct-2025 19:40:23 UTC] PHP Warning:  require_once(./Acciones.php): Failed to open stream: No such file or directory in C:\Users\Vespertino\Documents\DAW2_Marcos\DesarrolloServidor\DWES\UD2_AC4_Trabajando_con_formularios\php\jugarVideojuego.php on line 4
-[22-Oct-2025 19:40:23 UTC] PHP Fatal error:  Uncaught Error: Failed opening required './Acciones.php' (include_path='.;C:\php\pear') in C:\Users\Vespertino\Documents\DAW2_Marcos\DesarrolloServidor\DWES\UD2_AC4_Trabajando_con_formularios\php\jugarVideojuego.php:4
-Stack trace:
-#0 C:\Users\Vespertino\Documents\DAW2_Marcos\DesarrolloServidor\DWES\UD2_AC4_Trabajando_con_formularios\index.php(2): require_once()
-#1 {main}
-  thrown in C:\Users\Vespertino\Documents\DAW2_Marcos\DesarrolloServidor\DWES\UD2_AC4_Trabajando_con_formularios\php\jugarVideojuego.php on line 4
-[22-Oct-2025 19:40:51 UTC] PHP Fatal error:  Uncaught Error: Access to undeclared static property jugarVideojuegos::$extras in C:\Users\Vespertino\Documents\DAW2_Marcos\DesarrolloServidor\DWES\UD2_AC4_Trabajando_con_formularios\php\jugarVideojuego.php:83
-Stack trace:
-#0 C:\Users\Vespertino\Documents\DAW2_Marcos\DesarrolloServidor\DWES\UD2_AC4_Trabajando_con_formularios\index.php(31): jugarVideojuegos->__get()
-#1 {main}
-  thrown in C:\Users\Vespertino\Documents\DAW2_Marcos\DesarrolloServidor\DWES\UD2_AC4_Trabajando_con_formularios\php\jugarVideojuego.php on line 83
-[22-Oct-2025 19:42:33 UTC] PHP Fatal error:  Uncaught Error: Access to undeclared static property jugarVideojuegos::$extras in C:\Users\Vespertino\Documents\DAW2_Marcos\DesarrolloServidor\DWES\UD2_AC4_Trabajando_con_formularios\php\jugarVideojuego.php:82
-Stack trace:
-#0 C:\Users\Vespertino\Documents\DAW2_Marcos\DesarrolloServidor\DWES\UD2_AC4_Trabajando_con_formularios\index.php(31): jugarVideojuegos->__get()
-#1 {main}
-  thrown in C:\Users\Vespertino\Documents\DAW2_Marcos\DesarrolloServidor\DWES\UD2_AC4_Trabajando_con_formularios\php\jugarVideojuego.php on line 82
-[22-Oct-2025 19:43:14 UTC] PHP Fatal error:  Uncaught Error: Undefined constant "IVA" in C:\Users\Vespertino\Documents\DAW2_Marcos\DesarrolloServidor\DWES\UD2_AC4_Trabajando_con_formularios\index.php:31
-Stack trace:
-#0 {main}
-  thrown in C:\Users\Vespertino\Documents\DAW2_Marcos\DesarrolloServidor\DWES\UD2_AC4_Trabajando_con_formularios\index.php on line 31
-[22-Oct-2025 19:43:35 UTC] PHP Fatal error:  Uncaught Error: Access to undeclared static property jugarVideojuegos::$extras in C:\Users\Vespertino\Documents\DAW2_Marcos\DesarrolloServidor\DWES\UD2_AC4_Trabajando_con_formularios\php\jugarVideojuego.php:82
-Stack trace:
-#0 C:\Users\Vespertino\Documents\DAW2_Marcos\DesarrolloServidor\DWES\UD2_AC4_Trabajando_con_formularios\index.php(32): jugarVideojuegos->__get()
-#1 {main}
-  thrown in C:\Users\Vespertino\Documents\DAW2_Marcos\DesarrolloServidor\DWES\UD2_AC4_Trabajando_con_formularios\php\jugarVideojuego.php on line 82
+[24-Oct-2025 16:18:20 UTC] Nuevo videojuego añadido: 
+Call of Duty: Black Ops II
+PS3
+Guerra
+2025-10-24
+0.03
+
+[24-Oct-2025 16:18:37 UTC] Nuevo videojuego añadido: 
+Call of Duty: Black Ops II
+PS3
+Guerra
+2025-10-24
+0.03
+
+[24-Oct-2025 16:19:06 UTC] Nuevo videojuego añadido: 
+Call of Duty: Black Ops II
+PS3
+Guerra
+2025-10-24
+0.03
+
+[24-Oct-2025 16:19:57 UTC] Nuevo videojuego añadido: 
+Call of Duty: Black Ops II
+PS3
+Guerra
+2025-10-24
+0.03
+
+[24-Oct-2025 16:20:04 UTC] Nuevo videojuego añadido: 
+Call of Duty: Black Ops II
+PS3
+Guerra
+2025-10-24
+0.03
+
+[24-Oct-2025 16:21:23 UTC] Nuevo videojuego añadido: 
+Call of Duty: Black Ops II
+PS3
+Guerra
+2025-10-24
+0.03
+
+[24-Oct-2025 16:21:28 UTC] Nuevo videojuego añadido: 
+Call of Duty: Black Ops II
+PS3
+Guerra
+2025-10-24
+0.03
+
+[24-Oct-2025 16:22:42 UTC] Nuevo videojuego añadido: 
+Call of Duty: Black Ops II
+PS3
+Guerra
+2025-10-24
+0.03
+
+[24-Oct-2025 16:22:44 UTC] Nuevo videojuego añadido: 
+Call of Duty: Black Ops II
+PS3
+Guerra
+2025-10-24
+0.03
+
+[24-Oct-2025 16:23:45 UTC] Nuevo videojuego añadido: 
+Call of Duty: Black Ops II
+PS3
+Guerra
+2025-10-24
+0.03
+
+[24-Oct-2025 16:23:46 UTC] Nuevo videojuego añadido: 
+Call of Duty: Black Ops II
+PS3
+Guerra
+2025-10-24
+0.03
+
+[24-Oct-2025 16:23:46 UTC] Nuevo videojuego añadido: 
+Call of Duty: Black Ops II
+PS3
+Guerra
+2025-10-24
+0.03
+
+[24-Oct-2025 16:25:05 UTC] Nuevo videojuego añadido: 
+Call of Duty: Black Ops II
+PS3
+Guerra
+2025-10-24
+0.03
+
+[24-Oct-2025 16:25:26 UTC] Nuevo videojuego añadido: 
+Call of Duty: Black Ops II
+PS3
+Guerra
+2025-10-24
+0.03
+
+[24-Oct-2025 16:26:53 UTC] Nuevo videojuego añadido: 
+Call of Duty: Black Ops II
+PS3
+Guerra
+2025-10-24
+0.03
+
+[24-Oct-2025 16:26:57 UTC] Nuevo videojuego añadido: 
+Call of Duty: Black Ops II
+PS3
+Guerra
+2025-10-24
+0.03
+
+[24-Oct-2025 16:27:26 UTC] Nuevo videojuego añadido: 
+Call of Duty: Black Ops II
+PS3
+Guerra
+2025-10-24
+0.03
+
+[24-Oct-2025 16:29:07 UTC] Nuevo videojuego añadido: 
+Call of Duty: Black Ops II
+PS3
+Guerra
+2025-10-24
+0.03
+
+[24-Oct-2025 16:29:36 UTC] Nuevo videojuego añadido: 
+Call of Duty: Black Ops II
+PS3
+Guerra
+2025-10-24
+50.32
+

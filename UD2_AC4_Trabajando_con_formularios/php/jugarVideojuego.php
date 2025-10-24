@@ -86,6 +86,11 @@ class jugarVideojuegos extends Hobby implements Acciones
         return null;
     }
 
+    public function getExtras()
+    {
+        return $this->extras;
+    }
+
     public function __isset(string $name): bool
     {
         return in_array($name, array_keys(self::$extras), true);
