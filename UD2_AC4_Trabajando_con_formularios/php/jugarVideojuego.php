@@ -16,9 +16,9 @@ class jugarVideojuegos extends Hobby implements Acciones
     private array $actions = [];
     private array $extras = [];
 
-    public function __construct($name = null, $plataforma = null, $genero = null, $fechaLanzamiento = null, $precio = null)
+    public function __construct($name = null, $plataforma = null, $genero = null, $fechaLanzamiento = null, $precio = null, $fotografia = null)
     {
-        parent::__construct($name);
+        parent::__construct($name, $fotografia);
         $this->genero = $genero;
         $this->plataforma = $plataforma;
         $this->precio = $precio;
@@ -77,33 +77,29 @@ class jugarVideojuegos extends Hobby implements Acciones
         $this->fechaLanzamiento = $fechaLanzamiento;
     }
 
-    public function __get(string $name)
+    public function getFotografia()
     {
-        if (in_array($name, array_keys(self::$extras), true)) {
-            return $this->extras[$name];
-        }
-
-        return null;
+        return $this->fotografia;
     }
 
-    public function getExtras()
+    public function setFotografia($fotografia)
     {
-        return $this->extras;
+        $this->fotografia = $fotografia;
+    }
+
+    public function __get(string $name)
+    {
+        return $this->extras[$name] ?? null;
     }
 
     public function __isset(string $name): bool
     {
-        return in_array($name, array_keys(self::$extras), true);
+        return isset($this->extras[$name]);
     }
 
     public function __set(string $name, $value): void
     {
-        if (in_array($name, array_keys(self::$extras), true)) {
-            $this->extras[$name] = $value;
-
-            return;
-        }
-        throw new LogicException("Atributo {$name} ya existe");
+        $this->extras[$name] = $value;
     }
 
     public function iniciar($tiempo)
@@ -147,12 +143,11 @@ class jugarVideojuegos extends Hobby implements Acciones
             ? number_format((float) $this->getPrecio(), 2, ',', '.').'€'
             : (string) $this->getPrecio();
         $out[] = "Precio: {$precio}";
-        if (isset($this->extras) && !empty($this->extras)) {
-            if (!empty($extras)) {
-                $out[] = 'Extras:';
-                foreach ($extras as $k => $v) {
-                    $out[] = '  - '.$k.': '.(is_bool($v) ? ($v ? 'Sí' : 'No') : (string) $v);
-                }
+        $out[] = $this->fotografia;
+        if (!empty($this->extras)) {
+            $out[] = 'Extras:';
+            foreach ($this->extras as $k => $v) {
+                $out[] = '  - '.$k.': '.(is_bool($v) ? ($v ? 'Sí' : 'No') : (string) $v);
             }
         }
 

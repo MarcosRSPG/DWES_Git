@@ -104,11 +104,13 @@ input[type="submit"]:active {
 }
 .alert {
   margin: 14px 0;
-  padding: 12px 14px;
+  padding: 14px 16px;
   background: #0e1320;
   color: #e6e8ee;
   border: 1px solid #293048;
+  border-left: 4px solid #3a49ff;
   border-radius: 8px;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
   font-size: 14px;
+  line-height: 1.5;
 }

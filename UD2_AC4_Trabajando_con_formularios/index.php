@@ -1,22 +1,5 @@
 <?php
-require_once './php/jugarVideojuego.php';
-$nuevoVideojuego = new jugarVideojuegos();
-
-if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-    $nuevoVideojuego->setName($_GET['nombre']);
-    $nuevoVideojuego->setPlataforma($_GET['plataforma']);
-    $nuevoVideojuego->setGenero($_GET['genero']);
-    $nuevoVideojuego->setFechaLanzamiento($_GET['fechaLanzamiento']);
-    $nuevoVideojuego->setPrecio(floatval($_GET['precio']));
-
-    $mensaje = 'Nuevo videojuego añadido: '.PHP_EOL.$nuevoVideojuego->getName().PHP_EOL.$nuevoVideojuego->getPlataforma().PHP_EOL.$nuevoVideojuego->getGenero().PHP_EOL.
-    $nuevoVideojuego->getFechaLanzamiento().PHP_EOL.$nuevoVideojuego->getPrecio().PHP_EOL.implode($nuevoVideojuego->getExtras());
-
-    error_log($mensaje, LOG_INFO);
-
-    $contenido = nl2br(htmlspecialchars($mensaje, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'));
-    echo '<div class="alert" role="alert">'.$contenido.'</div>';
-}
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -30,27 +13,40 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     <header>
       <h1>Trabajando con formularios</h1>
     </header>
+
     <main>
-      <form action="#" method="get">
+      <?php
+      if (!empty($_SESSION['flash_lineas']) && is_array($_SESSION['flash_lineas'])) {
+          echo '<div class="alert" role="alert">'.
+               nl2br(htmlspecialchars(implode("\n", $_SESSION['flash_lineas']), ENT_QUOTES, 'UTF-8')).
+               '</div>';
+          unset($_SESSION['flash_lineas']);
+      }
+?>
+
+      <form action="procesar.php" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="submitted" value="1">
+
         <label for="nombre">Título:</label>
-        <input type="text" id="nombre" name="nombre"  required /><br /><br />
+        <input type="text" id="nombre" name="nombre" />
 
         <label for="plataforma">Plataforma:</label>
-        <input type="text" id="plataforma" name="plataforma" required /><br /><br />
+        <input type="text" id="plataforma" name="plataforma" />
 
-        <label for="genero">Género:</label><br />
-        <input type="text" id="genero" name="genero" required /><br /><br />
+        <label for="genero">Género:</label>
+        <input type="text" id="genero" name="genero" />
 
-        <label for="fechaLanzamiento">Fecha de lanzamiento:</label><br />
-        <input type="date" id="fechaLanzamiento" name="fechaLanzamiento" required /><br /><br />
-        <label for="precio">Precio:</label><br />
-        <input type="number" id="precio" name="precio" step="0.01" required /><br /><br />
-        <label id="IVA">IVA: <?php echo $nuevoVideojuego::IVA; ?></label><br />
-        <label for="minTiempo">Tiempo mínimo de juego (en horas): <?php echo $nuevoVideojuego::MINTIEMPO; ?></label><br />
-        <label for="maxTiempo">
-        Tiempo máximo de juego (en horas): <?php echo $nuevoVideojuego::MAXTIEMPO; ?></label><br /><br />
-        </label>
+        <label for="fechaLanzamiento">Fecha de lanzamiento:</label>
+        <input type="date" id="fechaLanzamiento" name="fechaLanzamiento" />
+
+        <label for="precio">Precio (€):</label>
+        <input type="number" id="precio" name="precio" step="0.01" />
+
+        <label for="fotografia">PDF (opcional):</label>
+        <input type="file" id="fotografia" name="fotografia" accept="application/pdf" />
+
         <input type="submit" value="Enviar" />
       </form>
+    </main>
   </body>
 </html>
