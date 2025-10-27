@@ -77,16 +77,6 @@ class jugarVideojuegos extends Hobby implements Acciones
         $this->fechaLanzamiento = $fechaLanzamiento;
     }
 
-    public function getFotografia()
-    {
-        return $this->fotografia;
-    }
-
-    public function setFotografia($fotografia)
-    {
-        $this->fotografia = $fotografia;
-    }
-
     public function __get(string $name)
     {
         return $this->extras[$name] ?? null;

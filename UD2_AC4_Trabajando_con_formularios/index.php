@@ -1,4 +1,5 @@
 <?php
+ini_set('session.save_path', 'E:\\Ampps\\tmp');
 session_start();
 ?>
 <!DOCTYPE html>

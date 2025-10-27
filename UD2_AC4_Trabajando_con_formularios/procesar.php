@@ -17,21 +17,15 @@ $juego->setPrecio(isset($_POST['precio']) ? (float) $_POST['precio'] : 0);
 if (isset($_FILES['fotografia']) && $_FILES['fotografia']['error'] === UPLOAD_ERR_OK) {
     $tipo = $_FILES['fotografia']['type'];
     $nombreArchivo = basename($_FILES['fotografia']['name']);
-    $partes = explode('.', $nombreArchivo);
-    $ext = count($partes) > 1 ? strtolower(end($partes)) : '';
+    $ext = explode('.', $nombreArchivo)[1];
 
     if ($tipo === 'application/pdf' && $ext === 'pdf') {
         $base = dirname(__FILE__).'/pdfs';
-        if (!is_dir($base)) {
-            @mkdir($base, 0777, true);
-        }
 
         $destino = $base.'/'.$nombreArchivo;
         $juego->nomAr = $nombreArchivo;
         if (!file_exists($destino) && $_FILES['fotografia']['size'] <= (2 * 1024 * 1024)) {
             @move_uploaded_file($_FILES['fotografia']['tmp_name'], $destino);
-
-            $juego->setFotografia(new SplFileInfo($destino));
         }
     }
 }
@@ -57,6 +51,10 @@ if (!is_float($precio) || $precio <= 0) {
     $errores[] = 'Precio inválido';
 }
 
+error_log(serialize($juego), LOG_INFO);
+
+$juego = unserialize($juego);
+
 $lineas = [];
 if (!empty($errores)) {
     $lineas[] = '⚠️ Faltan/son inválidos algunos campos:';
@@ -77,6 +75,7 @@ if (!empty($errores)) {
     $lineas[] = 'Precio: '.$precio;
     $lineas[] = 'PDF: '.($juego->nomAr ?? '');
 }
+ini_set('session.save_path', 'E:\\Ampps\\tmp');
 
 session_start();
 $_SESSION['flash_lineas'] = $lineas;
