@@ -53,8 +53,6 @@ if (!is_float($precio) || $precio <= 0) {
 
 error_log(serialize($juego), LOG_INFO);
 
-$juego = unserialize($juego);
-
 $lineas = [];
 if (!empty($errores)) {
     $lineas[] = '⚠️ Faltan/son inválidos algunos campos:';
