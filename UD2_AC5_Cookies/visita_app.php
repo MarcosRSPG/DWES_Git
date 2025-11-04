@@ -161,4 +161,3 @@ if (!isset($_COOKIE['visitas'])) {
     </div>
 
 </body>
-</html>
