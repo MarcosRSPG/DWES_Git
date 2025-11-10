@@ -1,1 +1,2 @@
-/.env
+# Ignorar el archivo de entorno
+.env
