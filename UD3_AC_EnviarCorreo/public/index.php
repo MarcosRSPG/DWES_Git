@@ -24,7 +24,7 @@ $ok2 = $mailer->sendMail(
     'marcosrs.softwaredeveloper@gmail.com',
     'marcosrs5775@gmail.com',
     'Prueba 2 - Con CC',
-    'cc@ejemplo.com',
+    'oraxiel5775@gmail.com',
     ''
 );
 echo $ok2 ? "Prueba 2 OK\n" : "Prueba 2 ERROR\n";
@@ -42,7 +42,7 @@ $ok4 = $mailer->sendMail(
     'marcosrs.softwaredeveloper@gmail.com',
     'marcosrs5775@gmail.com',
     'Prueba 4 - CC + adjunto',
-    'cc2@ejemplo.com',
+    'oraxiel5775@gmail.com',
     __DIR__.'./UD3_AC_EnviarCorreo.pdf'
 );
 echo $ok4 ? "Prueba 4 OK\n" : "Prueba 4 ERROR\n";
