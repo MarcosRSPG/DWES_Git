@@ -1,3 +1,17 @@
-#Aquí tu archivo sql que contine la información de tu base de datos
-#En este directorio bambién puedes incluir un script de creación de tu bbdd y/o tablas si detectas 
-# que tienes acceso al servidor de bbdd pero tu estructura de datos no está montada en el servidor.
+CREATE DATABASE
+
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) UNIQUE NOT NULL
+)
+
+CREATE TABLE videojuegos (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) UNIQUE NOT NULL,
+    genero VARCHAR(100) NULL,
+    plataforma VARCHAR(100) NULL,
+    fecha_lanzamiento DATE NULL,
+    precio DECIMAL(10, 2) NULL,
+    jugado BOOLEAN NOT NULL DEFAULT FALSE
+)
