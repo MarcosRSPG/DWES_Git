@@ -106,7 +106,6 @@ class GestorJugarVideojuego
         }
     }
 
-    // Método privado de alta simultánea (transacciones)
     private function altaSimultanea(array $registros)
     {
         try {
@@ -134,7 +133,6 @@ class GestorJugarVideojuego
         }
     }
 
-    // Wrapper público para poder llamar desde principal.php
     public function ejecutarAltaSimultanea(array $registros)
     {
         $this->altaSimultanea($registros);
