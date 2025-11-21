@@ -4,14 +4,18 @@ abstract class Hobby
 {
     protected $name;
 
-    public function __construct($name)
+    public function __construct($name = null)
     {
         $this->name = $name;
     }
 
-    abstract public function getName();
+    public function getName()
+    {
+        return $this->name;
+    }
 
-    abstract public function setName($name);
-
-    abstract public function __toString();
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
 }

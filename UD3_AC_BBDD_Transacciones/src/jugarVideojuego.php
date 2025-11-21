@@ -1,7 +1,8 @@
 <?php
 
-require_once './Hobby.php';
-class jugarVideojuegos extends Hobby
+require_once __DIR__.'/Hobby.php';
+
+class JugarVideojuego extends Hobby
 {
     private $id;
     private $genero;
@@ -10,14 +11,48 @@ class jugarVideojuegos extends Hobby
     private $precio;
     private $jugado;
 
-    public function __construct($name = null, $plataforma = null, $genero = null, $fechaLanzamiento = null, $precio = null, $jugado = false)
-    {
+    public function __construct(
+        $id = null,
+        $name = null,
+        $genero = null,
+        $plataforma = null,
+        $fechaLanzamiento = null,
+        $precio = null,
+        $jugado = false
+    ) {
         parent::__construct($name);
+        $this->id = $id;
         $this->genero = $genero;
         $this->plataforma = $plataforma;
-        $this->precio = $precio;
         $this->fechaLanzamiento = $fechaLanzamiento;
-        $this->jugado = $jugado;
+        $this->precio = $precio;
+        $this->jugado = (bool) $jugado;
+    }
+
+    public static function fromArray(array $fila)
+    {
+        return new self(
+            $fila['id'] ?? null,
+            $fila['name'] ?? null,
+            $fila['genero'] ?? null,
+            $fila['plataforma'] ?? null,
+            $fila['fecha_lanzamiento'] ?? null,
+            $fila['precio'] ?? null,
+            $fila['jugado'] ?? false
+        );
+    }
+
+    public function toArray()
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->getName(),
+            'genero' => $this->genero,
+            'plataforma' => $this->plataforma,
+            'fecha_lanzamiento' => $this->fechaLanzamiento,
+            'precio' => $this->precio,
+            'jugado' => $this->jugado ? 1 : 0,
+        ];
     }
 
     public function getName()
@@ -30,14 +65,19 @@ class jugarVideojuegos extends Hobby
         $this->name = $name;
     }
 
-    public function getPlataforma()
+    public function __toString()
     {
-        return $this->plataforma;
+        return $this->name;
     }
 
-    public function setPlataforma($plataforma)
+    public function getId()
     {
-        $this->plataforma = $plataforma;
+        return $this->id;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
     public function getGenero()
@@ -50,14 +90,14 @@ class jugarVideojuegos extends Hobby
         $this->genero = $genero;
     }
 
-    public function getPrecio()
+    public function getPlataforma()
     {
-        return $this->precio;
+        return $this->plataforma;
     }
 
-    public function setPrecio($precio)
+    public function setPlataforma($plataforma)
     {
-        $this->precio = $precio;
+        $this->plataforma = $plataforma;
     }
 
     public function getFechaLanzamiento()
@@ -70,6 +110,16 @@ class jugarVideojuegos extends Hobby
         $this->fechaLanzamiento = $fechaLanzamiento;
     }
 
+    public function getPrecio()
+    {
+        return $this->precio;
+    }
+
+    public function setPrecio($precio)
+    {
+        $this->precio = $precio;
+    }
+
     public function getJugado()
     {
         return $this->jugado;
@@ -77,27 +127,6 @@ class jugarVideojuegos extends Hobby
 
     public function setJugado($jugado)
     {
-        $this->jugado = $jugado;
-    }
-
-    public function __toString(): string
-    {
-        $out[] = "Título: {$this->getName()}";
-        $out[] = "Plataforma: {$this->getPlataforma()}";
-        $out[] = "Género: {$this->getGenero()}";
-        $fecha = is_numeric($this->getFechaLanzamiento())
-            ? date('Y-m-d', (int) $this->getFechaLanzamiento())
-            : (string) $this->getFechaLanzamiento();
-        $out[] = "Lanzamiento: {$fecha}";
-        $precio = is_numeric($this->getPrecio())
-            ? number_format((float) $this->getPrecio(), 2, ',', '.').'€'
-            : (string) $this->getPrecio();
-        $out[] = "Precio: {$precio}";
-        $out[] = 'Jugado: '.$this->jugado ? 'Si' : 'No';
-
-        $out[] = str_repeat('-', 40);
-        $out[] = '';
-
-        return implode('<br>', $out);
+        $this->jugado = (bool) $jugado;
     }
 }

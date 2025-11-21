@@ -6,32 +6,37 @@
  */
 class Conexion
 {
-    private static $host = 'ep-rapid-queen-agwaqadx-pooler.c-2.eu-central-1.aws.neon.tech';
-    private static $db = 'dws_bbdd_ud3_ac';
-    private static $user = 'neondb_owner';
-    private static $pass = 'npg_dzwj7S1axYJE';
-    private static $sslmode = 'require';
-    private static $channelBinding = 'require';
+    private static $conexion;
 
-    public function __construct()
+    private static $host = '127.0.0.1';
+    private static $port = 4000;
+    private static $db = 'dws_bbdd_ud3_ac';
+    private static $user = 'root';
+    private static $pass = 'rpwd';
+    private static $charset = 'utf8mb4';
+
+    private function __construct()
     {
     }
 
     public static function getConexion()
     {
-        $pdo = null;
+        if (self::$conexion === null) {
+            try {
+                $dsn = 'mysql:host='.self::$host.
+                       ';port='.self::$port.
+                       ';dbname='.self::$db.
+                       ';charset='.self::$charset;
 
-        $dsn = 'pgsql:host='.self::$host.';dbname='.self::$db.';sslmode='.self::$sslmode.';channel_binding='.self::$channelBinding;
-
-        try {
-            $pdo = new PDO($dsn, self::$user, self::$pass, [
-                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-            ]);
-
-            $pdo->exec("SET NAMES 'UTF8'");
+                self::$conexion = new PDO($dsn, self::$user, self::$pass, [
+                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                ]);
+            } catch (PDOException $e) {
+                throw new Exception('Error de conexión a la BD: '.$e->getMessage());
+            }
         }
 
-        return $pdo;
+        return self::$conexion;
     }
 }
