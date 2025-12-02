@@ -1,0 +1,17 @@
+{
+    "name": "mrs/ud3_ac_persistencia-ficheros",
+    "description": "Este composer se utilizará para la práctica de persistencia en ficheros",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Mrs\\Ud3AcPersistenciaFicheros\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "MarcosRSPG",
+            "email": "marcosrs.softwaredeveloper@gmail.com"
+        }
+    ]
+}
