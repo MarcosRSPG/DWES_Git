@@ -3,7 +3,6 @@
 $alfabeto = range('a', 'z');
 $nombreFichero = 'alfabeto.txt';
 
-// 1. Crear el fichero alfabeto.txt
 $f = fopen($nombreFichero, 'w');
 
 $contador = 0;
