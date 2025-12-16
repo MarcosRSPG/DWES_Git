@@ -1,11 +1,12 @@
 {
-    "name": "mrs/sendmail",
-    "description": "Este es un composer para la practica de mandar correos",
+    "name": "mrs/restaurante",
+    "description": "Ejercicio de gestion de restaurantes",
     "type": "project",
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Mrs\\Sendmail\\": "src/"
+            "Mrs\\Restaurante\\": "src/",
+            "Mrs\\tools\\": "tools/"
         }
     },
     "authors": [
@@ -15,8 +16,6 @@
         }
     ],
     "require": {
-        "phpmailer/phpmailer": "^7.0",
-        "vlucas/phpdotenv": "^5.6",
-      "ext-pdo": "*"
+        "phpmailer/phpmailer": "^7.0"
     }
 }
