@@ -1,11 +1,16 @@
 <?php
-    session_start();
-    require_once '../vendor/autoload.php';
-    if (!isset($_SESSION['correo'])) {
-        header('Location: index.php');
-    }
+session_start();
+require_once '../vendor/autoload.php';
+
+use Mrs\Restaurante\GestorCategorias;
+
+if (!isset($_SESSION['correo'])) {
+    header('Location: index.php');
+    exit;
+}
+
+$categorias = GestorCategorias::getCategorias();
 ?>
-<!DOCTYPE html>
 <!doctype html>
 <html lang="es">
 <head>
@@ -14,17 +19,30 @@
     <title>Principal</title>
 </head>
 <body>
-    <header>
-        <h1>Lista de Categorías</h1>
-    </header>
+<header>
+    <h1>Lista de Categorías</h1>
+</header>
+
 <main>
     <ul>
-        <li><a href="BebidasCon.html">Bebidas con</a></li>
-        <li><a href="BebidasSin.html">Bebidas sin</a></li>
-        <li><a href="Comida.html">Comida</a></li>
+        <?php foreach ($categorias as $c): ?>
+            <?php
+            $id = $c['CodCat'] ?? $c['id'] ?? '';
+            $nombre = $c['Nombre'] ?? $c['nombre'] ?? '';
+            ?>
+            <li>
+                <a href="tabla_lectura.php?cat=<?= urlencode($id) ?>">
+                    <?= htmlspecialchars($nombre) ?>
+                </a>
+            </li>
+        <?php endforeach; ?>
     </ul>
 
-    <h6>Usuario: <?php echo $_SESSION['correo']?><a href="carrito.php">Ver Carrito</a><a href="logout.php">Cerrar Sesión</a></h6>
+    <h6>
+        Usuario: <?= htmlspecialchars($_SESSION['correo']) ?>
+        <a href="carrito.php">Ver Carrito</a>
+        <a href="logout.php">Cerrar Sesión</a>
+    </h6>
 </main>
 </body>
 </html>

@@ -10,17 +10,18 @@ require_once __DIR__.'/../vendor/autoload.php';
 
 use PDO;
 use PDOException;
-
+use Mrs\tools\Config;
 class Conexion
 {
     private static $conexion;
-
-    private static $host = '127.0.0.1';
-    private static $port = 8000;
-    private static $db = 'gestorrestaurantes';
-    private static $user = 'root';
-    private static $pass = 'rpwd';
-    private static $charset = 'utf8mb4';
+    private static $config;
+    private static $driver;
+    private static $host;
+    private static $port;
+    private static $db;
+    private static $user;
+    private static $pass;
+    private static $charset;
 
     private function __construct()
     {
@@ -30,10 +31,19 @@ class Conexion
     {
         if (self::$conexion === null) {
             try {
-                $dsn = 'mysql:host='.self::$host.
+                self::$config = Config::getInstance();
+                self::$driver = self::$config->get('database', 'driver');
+                self::$host   = self::$config->get('database', 'host');
+                self::$db = self::$config->get('database', 'dbname');
+                self::$port   = self::$config->get('database', 'port');
+                self::$user   = self::$config->get('database', 'user');
+                self::$pass   = self::$config->get('database', 'pass');
+                self::$charset   = self::$config->get('database', 'charset');
+                $dsn = self::$driver.':host='.self::$host.
                        ';port='.self::$port.
                        ';dbname='.self::$db.
                        ';charset='.self::$charset;
+                error_log("DB HOST=" . self::$host . " PORT=" . self::$port . " DB=" . self::$db . " USER=" . self::$user. 'charset='.self::$charset);
 
                 self::$conexion = new PDO($dsn, self::$user, self::$pass, [
                     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
