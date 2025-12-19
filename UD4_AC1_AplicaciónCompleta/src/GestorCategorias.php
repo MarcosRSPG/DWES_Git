@@ -1,5 +1,4 @@
 <?php
-
 namespace Mrs\Restaurante;
 
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -19,27 +18,33 @@ class GestorCategorias
         return self::$pdo;
     }
 
+
     public static function getCategorias(): array
     {
-        $sql = "SELECT * FROM categorias";
+        $sql = "SELECT CodCat, Nombre, Descripcion FROM categorias ORDER BY Nombre";
         return self::pdo()->query($sql)->fetchAll();
     }
 
-    public static function getCategoria(string $id)
+
+    public static function getCategoria(string $codCat): ?array
     {
-        $sql = "SELECT * FROM categorias WHERE CodCat = :id";
+        $sql = "SELECT CodCat, Nombre, Descripcion FROM categorias WHERE CodCat = :id LIMIT 1";
         $stmt = self::pdo()->prepare($sql);
-        $stmt->execute(['id' => $id]);
-        return $stmt->fetch();
+        $stmt->execute(['id' => $codCat]);
+        $row = $stmt->fetch();
+        return $row ?: null;
     }
 
-    public static function getCategoriaPorNombre(string $nombre)
+
+    public static function getCategoriaPorNombre(string $nombre): ?array
     {
-        $sql = "SELECT * FROM categorias WHERE Nombre = :nombre LIMIT 1";
+        $sql = "SELECT CodCat, Nombre, Descripcion FROM categorias WHERE Nombre = :n LIMIT 1";
         $stmt = self::pdo()->prepare($sql);
-        $stmt->execute(['nombre' => $nombre]);
-        return $stmt->fetch();
+        $stmt->execute(['n' => $nombre]);
+        $row = $stmt->fetch();
+        return $row ?: null;
     }
+
 
     public static function insertCategoria(Categoria $categoria): void
     {
@@ -49,6 +54,7 @@ class GestorCategorias
         $stmt->execute($categoria->toDbParams());
     }
 
+
     public static function updateCategoria(Categoria $categoria): void
     {
         $sql = "UPDATE categorias
@@ -57,6 +63,7 @@ class GestorCategorias
         $stmt = self::pdo()->prepare($sql);
         $stmt->execute($categoria->toDbParams());
     }
+
 
     public static function deleteCategoria(string $id): void
     {

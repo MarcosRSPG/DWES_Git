@@ -10,25 +10,38 @@ if (!isset($_SESSION['correo'])) {
     exit;
 }
 
-// 1) GET: categoría seleccionada
+
 $catId = $_GET['cat'] ?? null;
 
-// 2) Cargar categorías para el selector
+
 $categorias = GestorCategorias::getCategorias();
 
-// 3) Cargar productos según categoría (si hay)
+
 if ($catId) {
     $productos = GestorProductos::getProductosPorCategoria($catId);
-    $titulo = "Productos de la categoría " . htmlspecialchars($catId);
+
+
+    $titulo = $catId;
+    foreach ($categorias as $c) {
+        $id = $c['CodCat'] ?? $c['id'] ?? '';
+        if ($id === $catId) {
+            $titulo = $c['Nombre'] ?? $c['nombre'] ?? $catId;
+            break;
+        }
+    }
+    $titulo = htmlspecialchars($titulo);
 } else {
     $productos = GestorProductos::getProductos();
     $titulo = "Todos los productos";
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title><?= $titulo ?></title>
 </head>
 <body>
@@ -70,7 +83,7 @@ if ($catId) {
         <tbody>
         <?php foreach ($productos as $p): ?>
             <?php
-            // Ajusta claves según tu BD
+
             $id = $p['CodProd'] ?? $p['id'] ?? '';
             $nombre = $p['Nombre'] ?? $p['nombre'] ?? '';
             $desc = $p['Descripcion'] ?? $p['descripcion'] ?? '';
@@ -102,7 +115,13 @@ if ($catId) {
         <?php endif; ?>
         </tbody>
     </table>
-
 </main>
+<footer>
+    <h6>
+        Usuario: <?= htmlspecialchars($_SESSION['correo']) ?>
+        <a href="carrito.php">Ver Carrito</a>
+        <a href="logout.php">Cerrar Sesión</a>
+    </h6>
+</footer>
 </body>
 </html>

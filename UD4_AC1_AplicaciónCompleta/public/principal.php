@@ -16,6 +16,7 @@ $categorias = GestorCategorias::getCategorias();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
     <title>Principal</title>
 </head>
 <body>
@@ -38,11 +39,14 @@ $categorias = GestorCategorias::getCategorias();
         <?php endforeach; ?>
     </ul>
 
+
+</main>
+<footer>
     <h6>
         Usuario: <?= htmlspecialchars($_SESSION['correo']) ?>
         <a href="carrito.php">Ver Carrito</a>
         <a href="logout.php">Cerrar Sesión</a>
     </h6>
-</main>
+</footer>
 </body>
 </html>
