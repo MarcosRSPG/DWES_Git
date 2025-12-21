@@ -1,9 +1,11 @@
 <?php
+
 namespace Mrs\Restaurante;
 
 use Ramsey\Uuid\Uuid;
 
-class Producto {
+class Producto
+{
     private string $id;
     private string $nombre;
     private string $descripcion;
@@ -29,29 +31,27 @@ class Producto {
 
     public static function fromArray(array $fila): self
     {
-        // Soporta columnas tipo CodProd/Nombre... o id/nombre...
         $id = $fila['CodProd'] ?? $fila['id'] ?? null;
 
         return new self(
             $fila['Nombre'] ?? $fila['nombre'] ?? '',
             $fila['Descripcion'] ?? $fila['descripcion'] ?? '',
-            (float)($fila['Peso'] ?? $fila['peso'] ?? 0),
-            (int)($fila['Stock'] ?? $fila['stock'] ?? 0),
+            (float) ($fila['Peso'] ?? $fila['peso'] ?? 0),
+            (int) ($fila['Stock'] ?? $fila['stock'] ?? 0),
             $fila['Categoria'] ?? $fila['categoria'] ?? '',
             $id
         );
     }
 
-    // Parámetros listos para PDO (según tu tabla: CodProd, Nombre, etc.)
     public function toDbParams(): array
     {
         return [
-            'CodProd'     => $this->id,
-            'Nombre'      => $this->nombre,
+            'CodProd' => $this->id,
+            'Nombre' => $this->nombre,
             'Descripcion' => $this->descripcion,
-            'Peso'        => $this->peso,
-            'Stock'       => $this->stock,
-            'Categoria'   => $this->categoria,
+            'Peso' => $this->peso,
+            'Stock' => $this->stock,
+            'Categoria' => $this->categoria,
         ];
     }
 }
