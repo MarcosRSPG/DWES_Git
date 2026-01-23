@@ -1,0 +1,18 @@
+Options -MultiViews
+RewriteEngine On
+
+RewriteBase /UD5_AC1_MVC/mvc2app_restaurante/
+
+# 1) Si alguien entra con /public/..., quítalo (evita controlador "public")
+RewriteRule ^public/(.*)$ public/index.php?url=$1 [QSA,L]
+
+# 2) Si existe el archivo/carpeta, se sirve tal cual
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# 3) Raíz del proyecto -> front controller (sin forzar Paginas/login)
+RewriteRule ^$ public/index.php [L]
+
+# 4) Todo lo demás -> front controller
+RewriteRule ^(.+)$ public/index.php?url=$1 [QSA,L]

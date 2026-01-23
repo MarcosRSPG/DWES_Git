@@ -1,0 +1,32 @@
+{
+  "name": "mrs/restaurante-mvc",
+  "description": "Esta es la misma practica que la anterior pero con un sistema MVC",
+  "type": "project",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "MRS\\Controladores\\": "app/controladores/",
+      "MRS\\Modelos\\": "app/modelos/",
+      "MRS\\Librerias\\": "app/librerias/",
+      "MRS\\Tools\\": "app/helpers/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "authors": [
+    {
+      "name": "MarcosRSPG",
+      "email": "marcosrs.softwaredeveloper@gmail.com"
+    }
+  ],
+  "require": {
+    "phpmailer/phpmailer": "*",
+    "ramsey/uuid": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "*"
+  }
+}
