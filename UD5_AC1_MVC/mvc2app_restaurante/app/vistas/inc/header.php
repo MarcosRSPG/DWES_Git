@@ -12,8 +12,8 @@ if (!function_exists('h')) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title><?php echo h((string) $title); ?></title>
-  <link rel="stylesheet" href="<?php echo h(RUTA_URL); ?>/css/estilos.css">
+  <title>Aplicacion MVC</title>
+  <link rel="stylesheet" href="<?php echo h(RUTA_URL); ?>/public/css/estilos.css">
 </head>
 <body>
 <header class="topbar">

@@ -7,16 +7,8 @@ namespace MRS\Tools;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 
-/**
- * Mailer reutilizable (MRS\Tools).
- * - No carga vendor/autoload.php aquí: eso se hace UNA vez en el entrypoint (public/index.php).
- * - Lee SMTP de app/config/config.ini si existe (si no, usa defaults).
- */
 class Mailer
 {
-    /**
-     * Envía un email HTML (y altBody opcional).
-     */
     public static function enviarMensaje(
         string $to,
         string $subject,
@@ -62,18 +54,14 @@ class Mailer
 
             return (bool) $mail->send();
         } catch (Exception $e) {
-            // En práctica, registra el error si quieres (error_log($e->getMessage());)
+            $e->getMessage();
+
             return false;
         }
     }
 
-    /**
-     * Lee configuración SMTP desde app/config/config.ini si existe.
-     * Espera sección [smtp] con host, port, secure, user, pass, from, from_name.
-     */
     private static function leerSmtp(): array
     {
-        // Intento 1: constante RUTA_APP (si estás en el MVC)
         if (defined('RUTA_APP')) {
             $ini = rtrim((string) RUTA_APP, '/\\').DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'config.ini';
             if (is_file($ini)) {
@@ -84,7 +72,6 @@ class Mailer
             }
         }
 
-        // Intento 2: entorno (por si lo reutilizas en otro proyecto)
         return [
             'host' => getenv('SMTP_HOST') ?: null,
             'port' => getenv('SMTP_PORT') ?: null,

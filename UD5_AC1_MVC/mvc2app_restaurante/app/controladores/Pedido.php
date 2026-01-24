@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace MRS\Controladores;
@@ -17,7 +18,7 @@ class Pedido extends Controlador
             $this->redirect('/Carrito/listar');
         }
 
-        $codRes = (string)($_SESSION['codRes'] ?? '');
+        $codRes = (string) ($_SESSION['codRes'] ?? '');
         if ($codRes === '') {
             $_SESSION['flash'] = ['type' => 'error', 'msg' => 'Restaurante no identificado.'];
             $this->redirect('/Carrito/listar');
@@ -26,9 +27,8 @@ class Pedido extends Controlador
         $modelo = $this->modelo('PedidoModelo');
 
         try {
-            $idPedido = $modelo->crearPedidoDesdeCarrito($codRes, $carrito, (string)($_SESSION['correo'] ?? ''));
+            $idPedido = $modelo->crearPedidoDesdeCarrito($codRes, $carrito, (string) ($_SESSION['correo'] ?? ''));
 
-            // Vaciar carrito si todo fue bien
             $_SESSION['carrito'] = [];
 
             $this->vista('paginas/mensaje', [

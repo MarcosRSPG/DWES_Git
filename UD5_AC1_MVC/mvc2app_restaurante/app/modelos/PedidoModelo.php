@@ -17,9 +17,6 @@ class PedidoModelo
         $this->db = new Db();
     }
 
-    /**
-     * @param array<string, LineaCarrito> $carrito
-     */
     public function crearPedidoDesdeCarrito(string $codRes, array $carrito, string $correoRestaurante): string
     {
         $pdo = $this->db->pdo();
@@ -29,13 +26,10 @@ class PedidoModelo
             $idPedido = Uuid::uuid4()->toString();
             $fecha = date('Y-m-d');
 
-            // Insert pedido (enviado = 1 porque es "pedido final")
             $sqlPed = 'INSERT INTO pedidos (CodPed, Fecha, Enviado, Restaurante) VALUES (:p, :f, 1, :r)';
             $st = $pdo->prepare($sqlPed);
             $st->execute([':p' => $idPedido, ':f' => $fecha, ':r' => $codRes]);
 
-            // Insert líneas + restar stock seguro
-            // 👇 IMPORTANTE: añadimos CodPedProd
             $sqlLinea = 'INSERT INTO pedidosproductos (CodPedProd, Pedido, Producto, Unidades)
                          VALUES (:id, :ped, :prod, :u)';
             $stL = $pdo->prepare($sqlLinea);
@@ -52,7 +46,6 @@ class PedidoModelo
                     continue;
                 }
 
-                // Restar stock con condición
                 $upd = 'UPDATE productos SET Stock = Stock - :u WHERE CodProd = :p AND Stock >= :u';
                 $stU = $pdo->prepare($upd);
                 $stU->execute([':u' => $u, ':p' => $prod]);
@@ -61,10 +54,8 @@ class PedidoModelo
                     throw new \RuntimeException('Stock insuficiente para el producto '.$prod);
                 }
 
-                // 👇 Genera ID hasheado: ppp_<hash>
-                // estable y muy improbable que colisione: pedido + producto + unidades + microtime + random
                 $raw = $idPedido.'|'.$prod.'|'.$u.'|'.microtime(true).'|'.bin2hex(random_bytes(8));
-                $hash = substr(hash('sha256', $raw), 0, 24); // 24 chars (ajusta si quieres)
+                $hash = substr(hash('sha256', $raw), 0, 24);
                 $idLinea = 'ppp_'.$hash;
 
                 $stL->execute([
@@ -77,7 +68,6 @@ class PedidoModelo
 
             $pdo->commit();
 
-            // Email (si está configurado)
             $this->enviarEmailPedido($correoRestaurante, $idPedido, $fecha, $carrito);
 
             return $idPedido;
@@ -87,9 +77,6 @@ class PedidoModelo
         }
     }
 
-    /**
-     * @param array<string, LineaCarrito> $carrito
-     */
     private function enviarEmailPedido(string $to, string $idPedido, string $fecha, array $carrito): void
     {
         if ($to === '') {

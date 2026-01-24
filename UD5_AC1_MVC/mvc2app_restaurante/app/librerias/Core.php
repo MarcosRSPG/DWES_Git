@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 namespace MRS\Librerias;
 
-/**
- * Core: mapea URL a Controlador/Método/Parámetros
- * Formato: /Controlador/metodo/parametro1/parametro2.
- */
 class Core
 {
     protected string $controladorActual = 'Paginas';
@@ -18,7 +14,6 @@ class Core
     {
         $url = $this->getUrl();
 
-        // Controlador
         if (!empty($url[0])) {
             $candidato = ucwords((string) $url[0]);
             $fqn = 'MRS\\Controladores\\'.$candidato;
@@ -37,16 +32,11 @@ class Core
             array_shift($url);
         }
 
-        // Parámetros
         $this->parametros = $url ?: [];
 
-        // Llamada final
         call_user_func_array([$controlador, $this->metodoActual], $this->parametros);
     }
 
-    /**
-     * Obtiene URL desde ?url=... (router) o desde REQUEST_URI (fallback).
-     */
     public function getUrl(): array
     {
         $raw = null;

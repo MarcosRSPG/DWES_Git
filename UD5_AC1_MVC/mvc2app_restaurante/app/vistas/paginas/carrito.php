@@ -28,7 +28,6 @@
       $totalP = 0.0; ?>
       <?php foreach ($datos['carrito'] as $pk => $linea) { ?>
         <?php
-          /** @var MRS\Modelos\LineaCarrito $linea */
           $totalU += $linea->getUnidades();
           $totalP += $linea->totalPeso();
           ?>

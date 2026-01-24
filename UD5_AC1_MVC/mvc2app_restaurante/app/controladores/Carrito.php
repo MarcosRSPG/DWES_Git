@@ -104,7 +104,6 @@ class Carrito extends Controlador
             $this->redirect('/Carrito/listar');
         }
 
-        // Validar stock actual
         $prodModel = $this->modelo('ProductoModelo');
         $producto = $prodModel->obtenerProducto($pk);
         $stock = (int) ($producto['Stock'] ?? 0);
