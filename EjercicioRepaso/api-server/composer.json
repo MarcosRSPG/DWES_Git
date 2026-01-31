@@ -1,0 +1,21 @@
+{
+  "name": "mrs/api-server",
+  "description": "Esta es la api del ejercicio de repaso para mudar el ejercicio mvc a api",
+  "type": "project",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Mrs\\ApiServer\\": "app/"
+    }
+  },
+  "authors": [
+    {
+      "name": "MarcosRSPG",
+      "email": "marcosrs.softwaredeveloper@gmail.com"
+    }
+  ],
+  "require": {
+    "phpmailer/phpmailer": "^7.0",
+    "ramsey/uuid": "^4.9"
+  }
+}

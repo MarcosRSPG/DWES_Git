@@ -1,0 +1,18 @@
+{
+    "name": "mrs/web-cliente",
+    "description": "Esta es la web que consumira de la api de restaurante",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Mrs\\WebCliente\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "MarcosRSPG",
+            "email": "marcosrs.softwaredeveloper@gmail.com"
+        }
+    ],
+    "require": {}
+}

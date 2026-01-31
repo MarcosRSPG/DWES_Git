@@ -1,0 +1,24 @@
+AUTH DEBUG:
+HTTP_AUTHORIZATION: NO EXISTE
+REDIRECT_HTTP_AUTHORIZATION: NO EXISTE
+PHP_AUTH_USER: admin
+PHP_AUTH_PW: admin123
+---
+AUTH DEBUG:
+HTTP_AUTHORIZATION: NO EXISTE
+REDIRECT_HTTP_AUTHORIZATION: NO EXISTE
+PHP_AUTH_USER: admin
+PHP_AUTH_PW: admin123
+---
+Encontrado: {"CodRes":"res-001","Correo":"restaurante@test.com","Clave":"$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC\/.og\/at2.uheWG\/igi","Nombre":"Restaurante El Buen Sabor","Telefono":"912345678","Direccion":"Calle Mayor 123, Madrid"}
+Hash BD: $2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi
+Clave recibida: password123
+password_verify resultado: FALSE
+Encontrado: {"CodRes":"res-001","Correo":"restaurante@test.com","Clave":"$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC\/.og\/at2.uheWG\/igi","Nombre":"Restaurante El Buen Sabor","Telefono":"912345678","Direccion":"Calle Mayor 123, Madrid"}
+Hash BD: $2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi
+Clave recibida: password123
+password_verify resultado: FALSE
+Encontrado: {"CodRes":"res-001","Correo":"restaurante@test.com","Clave":"$2y$10$G6exiDK5IIknlq8JWRbR6.V6DeEqF6izmn0A8fGc9QKP.5ALcnuu2","Nombre":"Restaurante El Buen Sabor","Telefono":"912345678","Direccion":"Calle Mayor 123, Madrid"}
+Hash BD: $2y$10$G6exiDK5IIknlq8JWRbR6.V6DeEqF6izmn0A8fGc9QKP.5ALcnuu2
+Clave recibida: password123
+password_verify resultado: TRUE
