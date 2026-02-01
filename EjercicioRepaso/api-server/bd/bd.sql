@@ -90,7 +90,8 @@ CREATE TABLE pedidosproductos (
 -- Insertar restaurante de prueba (contraseña: password123)
 INSERT INTO restaurantes (CodRes, Correo, Clave, Nombre, Telefono, Direccion) VALUES
 ('res-001', 'restaurante@test.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Restaurante El Buen Sabor', '912345678', 'Calle Mayor 123, Madrid'),
-('res-002', 'admin@restaurante.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'La Tasca Moderna', '923456789', 'Avenida Principal 45, Barcelona');
+('res-002', 'admin@restaurante.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'La Tasca Moderna', '923456789', 'Avenida Principal 45, Barcelona'),
+('res-003', 'lmperezbriones@gmail.com', '$2y$10$OC2hS.n2DkzE39W9Lkjye.SAZ1jIYqKX0AKVNd0dy9qYE6U7lG6NO', 'Eras', '777777777', 'Calle Da Marcos 13, La Rioja');
 
 -- Insertar categorías
 INSERT INTO categorias (CodCat, Nombre, Descripcion) VALUES

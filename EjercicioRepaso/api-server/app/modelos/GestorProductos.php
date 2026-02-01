@@ -16,9 +16,11 @@ class GestorProductos
     {
         $pdo = Db::getConexion();
 
-        $sql = 'SELECT CodProd, Nombre, Descripcion, Precio, Stock, Categoria
-                FROM productos
-                ORDER BY Nombre';
+        $sql = 'SELECT p.CodProd, p.Nombre, p.Descripcion, p.Precio, p.Stock, p.Categoria,
+                       c.Nombre as CategoriaNombre
+                FROM productos p
+                LEFT JOIN categorias c ON p.Categoria = c.CodCat
+                ORDER BY p.Nombre';
 
         $stmt = $pdo->query($sql);
 
@@ -32,10 +34,12 @@ class GestorProductos
     {
         $pdo = Db::getConexion();
 
-        $sql = 'SELECT CodProd, Nombre, Descripcion, Precio, Stock, Categoria
-                FROM productos
-                WHERE Categoria = :cat
-                ORDER BY Nombre';
+        $sql = 'SELECT p.CodProd, p.Nombre, p.Descripcion, p.Precio, p.Stock, p.Categoria,
+                       c.Nombre as CategoriaNombre
+                FROM productos p
+                LEFT JOIN categorias c ON p.Categoria = c.CodCat
+                WHERE p.Categoria = :cat
+                ORDER BY p.Nombre';
 
         $stmt = $pdo->prepare($sql);
         $stmt->execute(['cat' => $codCat]);
@@ -50,9 +54,11 @@ class GestorProductos
     {
         $pdo = Db::getConexion();
 
-        $sql = 'SELECT CodProd, Nombre, Descripcion, Precio, Stock, Categoria
-                FROM productos
-                WHERE CodProd = :id
+        $sql = 'SELECT p.CodProd, p.Nombre, p.Descripcion, p.Precio, p.Stock, p.Categoria,
+                       c.Nombre as CategoriaNombre
+                FROM productos p
+                LEFT JOIN categorias c ON p.Categoria = c.CodCat
+                WHERE p.CodProd = :id
                 LIMIT 1';
 
         $stmt = $pdo->prepare($sql);

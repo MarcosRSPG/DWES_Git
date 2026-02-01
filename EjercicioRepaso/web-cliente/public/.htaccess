@@ -1,0 +1,11 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /EjercicioRepaso/web-cliente/public/
+    
+    # Si el archivo o directorio existe, servirlo directamente
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    
+    # Si no existe, redirigir a index.php con la URL como parámetro
+    RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+</IfModule>

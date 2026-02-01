@@ -3,6 +3,7 @@
 namespace Mrs\ApiServer\controladores;
 
 use Mrs\ApiServer\librerias\Controlador;
+use Mrs\ApiServer\librerias\Mailer;
 use Mrs\ApiServer\modelos\GestorPedidos;
 
 /**
@@ -85,7 +86,7 @@ class ControladorPedidos extends Controlador
                     'message' => 'Producto agregado al carrito',
                 ], 200);
             } else {
-                $this->jsonResponse(['error' => 'Error al agregar producto'], 500);
+                $this->jsonResponse(['error' => 'Stock insuficiente'], 400);
             }
         } catch (\Exception $e) {
             $this->jsonResponse([
@@ -187,6 +188,24 @@ class ControladorPedidos extends Controlador
             $resultado = GestorPedidos::enviarPedido($correo);
 
             if ($resultado) {
+                // Obtener datos del restaurante
+                $restaurante = \Mrs\ApiServer\modelos\GestorRestaurantes::getRestaurantePorCorreo($correo);
+
+                // Enviar correo de confirmación
+                try {
+                    $mailer = new Mailer();
+                    $mailer->enviarConfirmacionPedido(
+                        $correo,
+                        $restaurante['Nombre'] ?? 'Cliente',
+                        $resultado['pedido'],
+                        $resultado['lineas'],
+                        $resultado['total']
+                    );
+                } catch (\Exception $e) {
+                    error_log('Error al enviar email: '.$e->getMessage());
+                    // No bloqueamos el pedido si falla el email
+                }
+
                 $this->jsonResponse([
                     'success' => true,
                     'message' => 'Pedido enviado correctamente',

@@ -83,10 +83,10 @@ class GestorPedidos
     /**
      * Agrega o actualiza un producto en el pedido con precio unitario y subtotal.
      *
-     * @param string $codPed      UUID del pedido
-     * @param string $codProd     UUID del producto
-     * @param int    $unidades    Cantidad a agregar
-     * @param float  $precioUnit  Precio unitario del producto
+     * @param string $codPed     UUID del pedido
+     * @param string $codProd    UUID del producto
+     * @param int    $unidades   Cantidad a agregar
+     * @param float  $precioUnit Precio unitario del producto
      *
      * @return bool True si se agregó/actualizó
      */
@@ -98,6 +98,16 @@ class GestorPedidos
 
         $pdo = Db::getConexion();
 
+        // Verificar stock disponible
+        $sql = 'SELECT Stock FROM productos WHERE CodProd = :prod';
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(['prod' => $codProd]);
+        $producto = $stmt->fetch();
+
+        if (!$producto || $producto['Stock'] < $unidades) {
+            return false; // Stock insuficiente
+        }
+
         // Verificar si ya existe la línea
         $sql = 'SELECT CodPedProd, Unidades, PrecioUnitario FROM pedidosproductos
                 WHERE Pedido = :ped AND Producto = :prod
@@ -108,16 +118,21 @@ class GestorPedidos
         $linea = $stmt->fetch();
 
         if ($linea) {
+            // Verificar si la cantidad total es menor al stock
+            $nuevaCantidad = $linea['Unidades'] + $unidades;
+            if ($nuevaCantidad > $producto['Stock']) {
+                return false; // Stock insuficiente
+            }
+
             // Actualizar unidades y subtotal
-            $nuevoSubtotal = ($linea['Unidades'] + $unidades) * $linea['PrecioUnitario'];
+            $nuevoSubtotal = $nuevaCantidad * $linea['PrecioUnitario'];
             $sql = 'UPDATE pedidosproductos
-                    SET Unidades = Unidades + :u, Subtotal = :sub
+                    SET Unidades = :u, Subtotal = :sub
                     WHERE CodPedProd = :cod';
 
             $stmt = $pdo->prepare($sql);
-
-            return $stmt->execute([
-                'u' => $unidades,
+            $resultado = $stmt->execute([
+                'u' => $nuevaCantidad,
                 'sub' => $nuevoSubtotal,
                 'cod' => $linea['CodPedProd'],
             ]);
@@ -130,8 +145,7 @@ class GestorPedidos
                     VALUES (:cod, :ped, :prod, :u, :precio, :sub)';
 
             $stmt = $pdo->prepare($sql);
-
-            return $stmt->execute([
+            $resultado = $stmt->execute([
                 'cod' => $codPedProd,
                 'ped' => $codPed,
                 'prod' => $codProd,
@@ -140,6 +154,15 @@ class GestorPedidos
                 'sub' => $subtotal,
             ]);
         }
+
+        // Si se agregó correctamente, reducir stock
+        if ($resultado) {
+            $sql = 'UPDATE productos SET Stock = Stock - :u WHERE CodProd = :prod';
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(['u' => $unidades, 'prod' => $codProd]);
+        }
+
+        return $resultado;
     }
 
     /**
@@ -174,10 +197,20 @@ class GestorPedidos
 
         $stmt = $pdo->prepare($sql);
         $stmt->execute(['ped' => $pedido['CodPed']]);
+        $lineas = $stmt->fetchAll();
+
+        // Calcular total dinámicamente
+        $total = 0;
+        foreach ($lineas as $linea) {
+            $total += $linea['Subtotal'];
+        }
+
+        // Agregar el total calculado al pedido
+        $pedido['Total'] = $total;
 
         return [
             'pedido' => $pedido,
-            'lineas' => $stmt->fetchAll(),
+            'lineas' => $lineas,
         ];
     }
 
@@ -252,15 +285,39 @@ class GestorPedidos
 
         $pdo = Db::getConexion();
 
+        // Obtener la cantidad de unidades para devolver al stock
+        $sql = 'SELECT Unidades FROM pedidosproductos
+                WHERE Pedido = :ped AND Producto = :prod
+                LIMIT 1';
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(['ped' => $pedido['CodPed'], 'prod' => $codProd]);
+        $linea = $stmt->fetch();
+
+        if (!$linea) {
+            return false;
+        }
+
+        $unidades = $linea['Unidades'];
+
+        // Eliminar del carrito
         $sql = 'DELETE FROM pedidosproductos
                 WHERE Pedido = :ped AND Producto = :prod';
 
         $stmt = $pdo->prepare($sql);
-
-        return $stmt->execute([
+        $resultado = $stmt->execute([
             'ped' => $pedido['CodPed'],
             'prod' => $codProd,
         ]);
+
+        // Devolver unidades al stock
+        if ($resultado) {
+            $sql = 'UPDATE productos SET Stock = Stock + :u WHERE CodProd = :prod';
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(['u' => $unidades, 'prod' => $codProd]);
+        }
+
+        return $resultado;
     }
 
     /**
@@ -268,7 +325,7 @@ class GestorPedidos
      *
      * @param string $correo Email del restaurante
      *
-     * @return bool True si se envió
+     * @return array|false Array con datos del pedido o false si hay error
      */
     public static function enviarPedido($correo)
     {
@@ -284,20 +341,41 @@ class GestorPedidos
 
         $pdo = Db::getConexion();
 
-        // Calcular total del pedido
-        $sql = 'SELECT SUM(Subtotal) as Total FROM pedidosproductos WHERE Pedido = :cod';
+        // Obtener líneas del pedido
+        $sql = 'SELECT pp.Unidades, pp.PrecioUnitario, pp.Subtotal,
+                       p.CodProd, p.Nombre, p.Descripcion
+                FROM pedidosproductos pp
+                INNER JOIN productos p ON pp.Producto = p.CodProd
+                WHERE pp.Pedido = :ped
+                ORDER BY p.Nombre';
+
         $stmt = $pdo->prepare($sql);
-        $stmt->execute(['cod' => $pedido['CodPed']]);
-        $resultado = $stmt->fetch();
-        $total = $resultado['Total'] ?: 0;
+        $stmt->execute(['ped' => $pedido['CodPed']]);
+        $lineas = $stmt->fetchAll();
+
+        // Calcular total del pedido
+        $total = 0;
+        foreach ($lineas as $linea) {
+            $total += $linea['Subtotal'];
+        }
 
         // Actualizar estado a enviado y guardar total
         $sql = 'UPDATE pedidos SET Estado = "enviado", Total = :total WHERE CodPed = :cod';
         $stmt = $pdo->prepare($sql);
 
-        return $stmt->execute([
+        $resultado = $stmt->execute([
             'total' => $total,
             'cod' => $pedido['CodPed'],
         ]);
+
+        if ($resultado) {
+            return [
+                'pedido' => $pedido['CodPed'],
+                'lineas' => $lineas,
+                'total' => $total,
+            ];
+        }
+
+        return false;
     }
 }
