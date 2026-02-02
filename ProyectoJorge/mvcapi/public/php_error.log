@@ -1,0 +1,14 @@
+[02-Feb-2026 08:38:33 UTC] PHP Fatal error:  Uncaught ArgumentCountError: Too few arguments to function Cls\Mvc2app\Api::articulo(), 0 passed and exactly 1 expected in C:\Program Files\Ampps\www\DWES\ud6\mvcapi\app\controladores\Api.php:278
+Stack trace:
+#0 [internal function]: Cls\Mvc2app\Api->articulo()
+#1 C:\Program Files\Ampps\www\DWES\ud6\mvcapi\app\librerias\Core.php(54): call_user_func_array()
+#2 C:\Program Files\Ampps\www\DWES\ud6\mvcapi\public\index.php(29): Cls\Mvc2app\Core->__construct()
+#3 {main}
+  thrown in C:\Program Files\Ampps\www\DWES\ud6\mvcapi\app\controladores\Api.php on line 278
+[02-Feb-2026 08:39:46 UTC] PHP Fatal error:  Uncaught ArgumentCountError: Too few arguments to function Cls\Mvc2app\Api::articulo(), 0 passed and exactly 1 expected in C:\Program Files\Ampps\www\DWES\ud6\mvcapi\app\controladores\Api.php:278
+Stack trace:
+#0 [internal function]: Cls\Mvc2app\Api->articulo()
+#1 C:\Program Files\Ampps\www\DWES\ud6\mvcapi\app\librerias\Core.php(54): call_user_func_array()
+#2 C:\Program Files\Ampps\www\DWES\ud6\mvcapi\public\index.php(29): Cls\Mvc2app\Core->__construct()
+#3 {main}
+  thrown in C:\Program Files\Ampps\www\DWES\ud6\mvcapi\app\controladores\Api.php on line 278

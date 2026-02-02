@@ -1,0 +1,307 @@
+### API REST Restaurante - PRUEBA EN CASCADA
+### URL Base: http://mywww/EjercicioRepaso_Modificado/api-server/public
+### Autenticación Basic Auth: admin:admin123 (Base64: YWRtaW46YWRtaW4xMjM=)
+
+GET http://mywww/EjercicioRepaso_Modificado/api-server/controladorproductos/productos
+Authorization: Basic admin admin123
+
+### ============================================
+### 1. LOGIN - Inicia sesión restaurante
+### ============================================
+POST http://mywww/EjercicioRepaso_Modificado/api-server/public/controladorauth/login
+Content-Type: application/json
+Authorization: Basic admin admin123
+
+{
+  "correo": "restaurante@test.com",
+  "clave": "password"
+}
+
+### Respuesta esperada:
+### {
+###   "success": true,
+###   "restaurante": {
+###     "CodRes": "res-001",
+###     "Nombre": "Restaurante El Buen Sabor",
+###     ...
+###   }
+### }
+
+###############################################
+### 2. VERIFICAR SESIÓN
+### ============================================
+GET http://mywww/EjercicioRepaso_Modificado/api-server/public/controladorauth/verificar
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+### Respuesta: {"autenticado": true, "restaurante": {...}}
+
+###############################################
+### 3. OBTENER CATEGORÍAS
+### ============================================
+GET http://mywww/EjercicioRepaso_Modificado/api-server/public/controladorcategorias/categorias
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+### Respuesta: {"success": true, "categorias": [...]}
+### COPIA UNO DE LOS CodCat para usarlo en crear producto
+
+###############################################
+### 4. CREAR NUEVA CATEGORÍA
+### ============================================
+POST http://mywww/EjercicioRepaso_Modificado/api-server/public/controladorcategorias/crear
+Content-Type: application/json
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+{
+  "nombre": "Bebidas Premium",
+  "descripcion": "Bebidas especiales y exclusivas"
+}
+
+### Respuesta: {"success": true, "categoria": {"CodCat": "...", "Nombre": "Bebidas Premium"}}
+
+###############################################
+### 5. OBTENER CATEGORÍA ESPECÍFICA
+### ============================================
+### Reemplaza "cat-004" con el CodCat de la respuesta anterior o de la lista
+GET http://mywww/EjercicioRepaso_Modificado/api-server/public/controladorcategorias/categoria/cat-004
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+### Respuesta: {"success": true, "categoria": {...}}
+
+###############################################
+### 6. OBTENER TODOS LOS PRODUCTOS
+### ============================================
+GET http://mywww/EjercicioRepaso_Modificado/api-server/public/controladorproductos/productos
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+### Respuesta: {"success": true, "productos": [...]}
+### IMPORTANTE: Copia el CodProd del primer producto para agregar al carrito
+
+###############################################
+### 7. CREAR NUEVO PRODUCTO
+### ============================================
+### Reemplaza "cat-004" con un CodCat válido de paso anterior
+POST http://mywww/EjercicioRepaso_Modificado/api-server/public/controladorproductos/crear
+Content-Type: application/json
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+{
+  "nombre": "Vino Tinto Reserva",
+  "descripcion": "Vino tinto de la región DO Rioja, año 2018",
+  "precio": 25.99,
+  "stock": 12,
+  "categoria": "cat-004"
+}
+
+### Respuesta: {"success": true, "producto": {"CodProd": "...", "Nombre": "Vino Tinto Reserva"}}
+
+###############################################
+### 8. OBTENER PRODUCTOS POR CATEGORÍA
+### ============================================
+### Reemplaza "cat-001" con un CodCat válido
+GET http://mywww/EjercicioRepaso_Modificado/api-server/public/controladorproductos/productoscategoria/cat-001
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+### Respuesta: {"success": true, "productos": [...]}
+
+###############################################
+### 9. OBTENER PRODUCTO ESPECÍFICO
+### ============================================
+### Reemplaza "prod-013" con un CodProd válido (del paso 6 o 7)
+GET http://mywww/EjercicioRepaso_Modificado/api-server/public/controladorproductos/producto/prod-013
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+### Respuesta: {"success": true, "producto": {...}}
+
+###############################################
+### 10. VER CARRITO (debe estar vacío)
+### ============================================
+GET http://mywww/EjercicioRepaso_Modificado/api-server/public/controladorpedidos/carrito
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+### Respuesta: {"success": true, "carrito": {"pedido": null, "lineas": []}}
+
+###############################################
+### 11. AGREGAR PRODUCTO AL CARRITO
+### ============================================
+### Reemplaza "prod-013" con un CodProd válido
+POST http://mywww/EjercicioRepaso_Modificado/api-server/public/controladorpedidos/agregar
+Content-Type: application/json
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+{
+  "codProd": "prod-013",
+  "unidades": 2
+}
+
+### Respuesta: {"success": true, "message": "Producto agregado al carrito"}
+
+###############################################
+### 12. AGREGAR OTRO PRODUCTO AL CARRITO
+### ============================================
+### Usa otro CodProd diferente al anterior
+POST http://mywww/EjercicioRepaso_Modificado/api-server/public/controladorpedidos/agregar
+Content-Type: application/json
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+{
+  "codProd": "prod-014",
+  "unidades": 1
+}
+
+### Respuesta: {"success": true, "message": "Producto agregado al carrito"}
+
+###############################################
+### 13. VER CARRITO (con productos)
+### ============================================
+GET http://mywww/EjercicioRepaso_Modificado/api-server/public/controladorpedidos/carrito
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+### Respuesta: 
+### {
+###   "success": true,
+###   "carrito": {
+###     "pedido": {"CodPed": "...", "FechaPedido": "...", "Estado": "abierto", "Total": "..."},
+###     "lineas": [
+###       {"CodProdProd": "...", "Unidades": 2, "PrecioUnitario": "...", "Subtotal": "..."},
+###       {"CodProdProd": "...", "Unidades": 1, "PrecioUnitario": "...", "Subtotal": "..."}
+###     ]
+###   }
+### }
+
+###############################################
+### 14. ACTUALIZAR CANTIDAD EN CARRITO
+### ============================================
+### Cambia las cantidades de los productos en el carrito
+PUT http://mywww/EjercicioRepaso_Modificado/api-server/public/controladorpedidos/actualizar
+Content-Type: application/json
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+{
+  "unidades": {
+    "prod-013": 3,
+    "prod-014": 2
+  }
+}
+
+### Respuesta: {"success": true, "message": "Carrito actualizado"}
+
+###############################################
+### 15. VER CARRITO (con cantidades actualizadas)
+### ============================================
+GET http://mywww/EjercicioRepaso_Modificado/api-server/public/controladorpedidos/carrito
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+### Respuesta: Debe mostrar las nuevas cantidades (3 y 2)
+
+###############################################
+### 16. ELIMINAR PRODUCTO DEL CARRITO
+### ============================================
+### Elimina el segundo producto (unidades = 0)
+DELETE http://mywww/EjercicioRepaso_Modificado/api-server/public/controladorpedidos/eliminar/prod-014
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+### Respuesta: {"success": true, "message": "Producto eliminado del carrito"}
+
+###############################################
+### 17. VER CARRITO (solo 1 producto)
+### ============================================
+GET http://mywww/EjercicioRepaso_Modificado/api-server/public/controladorpedidos/carrito
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+### Respuesta: Debe mostrar solo prod-013 con 3 unidades
+
+###############################################
+### 18. ACTUALIZAR CATEGORÍA
+### ============================================
+### Reemplaza "cat-004" con un CodCat válido
+PUT http://mywww/EjercicioRepaso_Modificado/api-server/public/controladorcategorias/actualizar/cat-004
+Content-Type: application/json
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+{
+  "nombre": "Bebidas Premium Actualizado",
+  "descripcion": "Bebidas especiales, exclusivas y premium"
+}
+
+### Respuesta: {"success": true, "message": "Categoría actualizada"}
+
+###############################################
+### 19. ACTUALIZAR PRODUCTO
+### ============================================
+### Reemplaza "prod-013" con un CodProd válido
+### Usa una categoría válida (cat-001, cat-002, cat-003 o cat-004)
+PUT http://mywww/EjercicioRepaso_Modificado/api-server/public/controladorproductos/actualizar/prod-013
+Content-Type: application/json
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+{
+  "nombre": "Agua Mineral Premium",
+  "descripcion": "Agua mineral de manantial natural (500ml) - ACTUALIZADO",
+  "precio": 2.50,
+  "stock": 150,
+  "categoria": "cat-002"
+}
+
+### Respuesta: {"success": true, "message": "Producto actualizado"}
+
+###############################################
+### 20. ENVIAR/FINALIZAR PEDIDO
+### ============================================
+POST http://mywww/EjercicioRepaso_Modificado/api-server/public/controladorpedidos/enviar
+Content-Type: application/json
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+### Respuesta: {"success": true, "message": "Pedido enviado correctamente"}
+
+###############################################
+### 21. VER CARRITO (debe estar vacío nuevamente)
+### ============================================
+GET http://mywww/EjercicioRepaso_Modificado/api-server/public/controladorpedidos/carrito
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+### Respuesta: {"success": true, "carrito": {"pedido": null, "lineas": []}}
+### El pedido anterior cambió de estado a "enviado" y se creó uno nuevo vacío
+
+###############################################
+### 22. LOGOUT - Cierra sesión
+### ============================================
+POST http://mywww/EjercicioRepaso_Modificado/api-server/public/controladorauth/logout
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+### Respuesta: {"success": true, "message": "Sesión cerrada"}
+
+###############################################
+### 23. VERIFICAR SESIÓN (debe estar vacía)
+### ============================================
+GET http://mywww/EjercicioRepaso_Modificado/api-server/public/controladorauth/verificar
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+### Respuesta: {"autenticado": false}
+
+###############################################
+### PRUEBAS DE ERROR
+###############################################
+
+### ERROR 1: Sin Basic Auth (debe fallar)
+GET http://mywww/EjercicioRepaso_Modificado/api-server/public/controladorproductos/productos
+
+### Respuesta: 401 {"error": "Unauthorized"}
+
+### ERROR 2: Sin sesión de login (después de logout)
+GET http://mywww/EjercicioRepaso_Modificado/api-server/public/controladorpedidos/carrito
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+### Respuesta: 401 {"error": "Authentication required"}
+
+### ERROR 3: Producto inexistente
+GET http://mywww/EjercicioRepaso_Modificado/api-server/public/controladorproductos/producto/no-existe-123
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+### Respuesta: 404 {"error": "Producto no encontrado"}
+
+### ERROR 4: Categoría inexistente
+GET http://mywww/EjercicioRepaso_Modificado/api-server/public/controladorcategorias/categoria/no-existe-123
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+### Respuesta: 404 {"error": "Categoría no encontrada"}
+

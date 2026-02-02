@@ -1,0 +1,53 @@
+@baseUrl = http://localhost/dwes/ud6/mvcapi
+//@auth basic profesor 1234
+
+### LISTAR
+//@auth basic profesor 1234
+GET {{baseUrl}}/api/cars
+//Authorization: Basic profesor:1234
+Authorization: Basic cHJvZmVzb3I6MTIzNA==
+Accept: application/json
+
+###
+
+### CREAR (POST)
+POST {{baseUrl}}/api/cars
+//Authorization: Basic profesor:1234
+Authorization: Basic cHJvZmVzb3I6MTIzNA==
+Content-Type: application/json
+Accept: application/json
+
+{
+  "brand": "Honda",
+  "model": "Civic",
+  "color": "Rojo",
+  "owner": "César"
+}
+
+###
+
+### VER 1
+GET {{baseUrl}}/api/car/1
+Accept: application/json
+
+###
+
+### ACTUALIZAR 1 (PUT)
+PUT {{baseUrl}}/api/car/1
+Authorization: Basic profesor:1234
+Content-Type: application/json
+Accept: application/json
+
+{
+  "brand": "Honda",
+  "model": "Civic 2025",
+  "color": "Negro",
+  "owner": "César"
+}
+
+###
+
+### BORRAR 1 (DELETE)
+DELETE {{baseUrl}}/api/car/1
+//Authorization: Basic profesor:1234
+Accept: application/json
