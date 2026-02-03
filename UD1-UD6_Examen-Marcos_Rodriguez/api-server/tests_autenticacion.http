@@ -1,0 +1,119 @@
+### =================================================================
+### TESTS DE AUTENTICACIÓN - EjercicioRepaso_Modificado
+### Sistema de autenticación basado en ProyectoAndrea (BD + Hashes)
+### =================================================================
+
+### VARIABLES
+@baseUrl = http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public
+@adminUser = admin
+@adminPass = admin123
+@profesorUser = profesor
+@profesorPass = 1234
+@usuarioUser = usuario
+@usuarioPass = password
+
+### =================================================================
+### TEST 1: Autenticación CORRECTA con usuario 'admin'
+### Debe retornar 200 OK con la lista de mascotas
+### =================================================================
+GET {{baseUrl}}/controladormascotas/mascotas
+Authorization: Basic {{adminUser}} {{adminPass}}
+
+### =================================================================
+### TEST 2: Autenticación CORRECTA con usuario 'profesor'
+### Debe retornar 200 OK
+### =================================================================
+GET {{baseUrl}}/controladormascotas/mascotas
+Authorization: Basic {{profesorUser}} {{profesorPass}}
+
+### =================================================================
+### TEST 3: Autenticación CORRECTA con usuario 'usuario'
+### Debe retornar 200 OK
+### =================================================================
+GET {{baseUrl}}/controladormascotas/mascotas
+Authorization: Basic {{usuarioUser}} {{usuarioPass}}
+
+### =================================================================
+### TEST 4: Sin credenciales
+### Debe retornar 401 Unauthorized
+### =================================================================
+GET {{baseUrl}}/controladormascotas/mascotas
+
+### =================================================================
+### TEST 5: Credenciales INCORRECTAS (contraseña mal)
+### Debe retornar 401 Unauthorized con mensaje de error
+### =================================================================
+GET {{baseUrl}}/controladormascotas/mascotas
+Authorization: Basic admin wrongpassword
+
+### =================================================================
+### TEST 6: Usuario NO EXISTE en BD
+### Debe retornar 401 Unauthorized
+### =================================================================
+GET {{baseUrl}}/controladormascotas/mascotas
+Authorization: Basic noexiste password123
+
+### =================================================================
+### TEST 7: Obtener categorías con autenticación correcta
+### =================================================================
+GET {{baseUrl}}/controladorcategorias/categorias
+Authorization: Basic {{adminUser}} {{adminPass}}
+
+### =================================================================
+### TEST 8: Obtener producto específico
+### =================================================================
+GET {{baseUrl}}/controladormascotas/producto/prod-001
+Authorization: Basic {{adminUser}} {{adminPass}}
+
+### =================================================================
+### COMPARACIÓN: Sistema Antiguo vs Nuevo
+### =================================================================
+### 
+### SISTEMA ANTIGUO (constantes):
+### - Usuario: admin (hardcoded en config.php)
+### - Contraseña: admin123 (hardcoded en config.php)
+### - Solo 1 usuario posible
+### - Contraseña en texto plano
+### 
+### SISTEMA NUEVO (BD + ProyectoAndrea):
+### - Usuarios en tabla usuarios_api
+### - Contraseñas hasheadas con password_hash()
+### - Múltiples usuarios: admin, profesor, usuario
+### - Verificación con password_verify()
+### - Más seguro y escalable
+### 
+### =================================================================
+
+### =================================================================
+### TEST EXTRA: Verificar que requireAuth() sigue funcionando
+### (login de restaurantes - segunda capa de autenticación)
+### =================================================================
+
+### Paso 1: Login de restaurante
+POST {{baseUrl}}/controladorauth/login
+Authorization: Basic {{adminUser}} {{adminPass}}
+Content-Type: application/json
+
+{
+  "correo": "restaurante@test.com",
+  "clave": "password123"
+}
+
+### Paso 2: Obtener mascotas (requiere Basic Auth + sesión restaurante)
+GET {{baseUrl}}/controladormascotas/mascotas
+Authorization: Basic {{adminUser}} {{adminPass}}
+
+### =================================================================
+### NOTAS IMPORTANTES:
+### =================================================================
+### 1. Dos capas de autenticación:
+###    - requireBasicAuth() → usuarios_api (admin, profesor, usuario)
+###    - requireAuth() → restaurantes (sesiones)
+### 
+### 2. Los hashes en la BD son únicos cada vez que se generan
+###    pero password_verify() sigue funcionando correctamente
+### 
+### 3. Si cambias contraseñas, debes regenerar hashes:
+###    php generar_hash_usuarios.php
+### 
+### =================================================================

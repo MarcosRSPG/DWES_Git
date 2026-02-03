@@ -1,0 +1,22 @@
+{
+  "name": "mrs/webcliente",
+  "description": "Esta es la web del proyecto del examen",
+  "type": "project",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Mrs\\Webcliente\\": [
+        "app/librerias/",
+        "app/controladores/",
+        "app/config/"
+      ]
+    }
+  },
+  "authors": [
+    {
+      "name": "MarcosRSPG",
+      "email": "marcosrs.softwaredeveloper@gmail.com"
+    }
+  ],
+  "require": {}
+}

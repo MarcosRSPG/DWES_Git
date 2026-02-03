@@ -1,0 +1,20 @@
+{
+  "name": "mrs/api-server",
+  "description": "Este es el ejercicio del examen. La parte de API",
+  "type": "project",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Mrs\\ApiServer\\": "app/"
+    }
+  },
+  "authors": [
+    {
+      "name": "MarcosRSPG",
+      "email": "marcosrs.softwaredeveloper@gmail.com"
+    }
+  ],
+  "require": {
+    "ramsey/uuid": "^4.9"
+  }
+}

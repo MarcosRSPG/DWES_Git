@@ -12,7 +12,7 @@ class Auth extends Controlador
     public function logout()
     {
         session_destroy();
-        header('Location: '.WEB_URL.'/auth/login');
+        header('Location: '.RUTA_URL.'auth/login');
         exit;
     }
 }

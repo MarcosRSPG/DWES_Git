@@ -1,0 +1,12 @@
+[02-Feb-2026 14:24:21 Europe/Berlin] PHP Deprecated:  Creation of dynamic property Cls\Mvc2app\Mascotas::$modelo is deprecated in C:\xampp\htdocs\dwes\mvcexamen\app\controladores\Mascotas.php on line 9
+[02-Feb-2026 14:24:21 Europe/Berlin] PHP Deprecated:  Creation of dynamic property Cls\Mvc2app\Mascotas::$vista is deprecated in C:\xampp\htdocs\dwes\mvcexamen\app\controladores\Mascotas.php on line 11
+[02-Feb-2026 14:24:21 Europe/Berlin] PHP Deprecated:  Creation of dynamic property Cls\Mvc2app\Mascotas::$datos is deprecated in C:\xampp\htdocs\dwes\mvcexamen\app\controladores\Mascotas.php on line 12
+[02-Feb-2026 14:30:11 Europe/Berlin] PHP Deprecated:  Creation of dynamic property Cls\Mvc2app\Mascotas::$modelo is deprecated in C:\xampp\htdocs\dwes\mvcexamen\app\controladores\Mascotas.php on line 9
+[02-Feb-2026 14:30:11 Europe/Berlin] PHP Deprecated:  Creation of dynamic property Cls\Mvc2app\Mascotas::$vista is deprecated in C:\xampp\htdocs\dwes\mvcexamen\app\controladores\Mascotas.php on line 11
+[02-Feb-2026 14:30:11 Europe/Berlin] PHP Deprecated:  Creation of dynamic property Cls\Mvc2app\Mascotas::$datos is deprecated in C:\xampp\htdocs\dwes\mvcexamen\app\controladores\Mascotas.php on line 12
+[02-Feb-2026 14:30:11 Europe/Berlin] PHP Deprecated:  Creation of dynamic property Cls\Mvc2app\Mascotas::$modelo is deprecated in C:\xampp\htdocs\dwes\mvcexamen\app\controladores\Mascotas.php on line 9
+[02-Feb-2026 14:30:11 Europe/Berlin] PHP Deprecated:  Creation of dynamic property Cls\Mvc2app\Mascotas::$vista is deprecated in C:\xampp\htdocs\dwes\mvcexamen\app\controladores\Mascotas.php on line 11
+[02-Feb-2026 14:30:11 Europe/Berlin] PHP Deprecated:  Creation of dynamic property Cls\Mvc2app\Mascotas::$datos is deprecated in C:\xampp\htdocs\dwes\mvcexamen\app\controladores\Mascotas.php on line 12
+[02-Feb-2026 14:31:22 Europe/Berlin] PHP Deprecated:  Creation of dynamic property Cls\Mvc2app\Mascotas::$modelo is deprecated in C:\xampp\htdocs\dwes\mvcexamen\app\controladores\Mascotas.php on line 9
+[02-Feb-2026 14:31:22 Europe/Berlin] PHP Deprecated:  Creation of dynamic property Cls\Mvc2app\Mascotas::$vista is deprecated in C:\xampp\htdocs\dwes\mvcexamen\app\controladores\Mascotas.php on line 11
+[02-Feb-2026 14:31:22 Europe/Berlin] PHP Deprecated:  Creation of dynamic property Cls\Mvc2app\Mascotas::$datos is deprecated in C:\xampp\htdocs\dwes\mvcexamen\app\controladores\Mascotas.php on line 12

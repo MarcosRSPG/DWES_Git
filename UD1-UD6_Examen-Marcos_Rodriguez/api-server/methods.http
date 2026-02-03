@@ -1,0 +1,165 @@
+### API REST - Restaurante
+### URL Base: http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public
+### Basic Auth: admin:admin123 (Base64: YWRtaW46YWRtaW4xMjM=)
+
+###############################################
+### AUTENTICACIÓN
+###############################################
+
+### 1. Login (Iniciar sesión)
+POST http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladorauth/login
+Content-Type: application/json
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+{
+  "correo": "restaurante@test.com",
+  "clave": "password123"
+}
+
+### 2. Verificar sesión activa
+GET http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladorauth/verificar
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+### 3. Logout (Cerrar sesión)
+POST http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladorauth/logout
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+
+###############################################
+### CATEGORÍAS
+###############################################
+
+### 4. Obtener todas las categorías
+GET http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladorCategorias/categorias
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+### 5. Obtener una categoría específica
+GET http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladorCategorias/categoria/cat-001
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+### 6. Crear nueva categoría
+POST http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladorCategorias/crear
+Content-Type: application/json
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+{
+  "nombre": "Postres",
+  "descripcion": "Deliciosos postres caseros"
+}
+
+### 7. Actualizar categoría
+PUT http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladorCategorias/actualizar/cat-001
+Content-Type: application/json
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+{
+  "nombre": "Entrantes Especiales",
+  "descripcion": "Los mejores entrantes de la casa"
+}
+
+### 8. Eliminar categoría
+DELETE http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladorCategorias/eliminar/cat-001
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+
+###############################################
+### PRODUCTOS
+###############################################
+
+### 9. Obtener todos los productos
+GET http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladorProductos/productos
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+### 10. Obtener productos por categoría
+GET http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladorProductos/productoscategoria/cat-002
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+### 11. Obtener un producto específico
+GET http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladorProductos/producto/prod-005
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+### 12. Crear nuevo producto
+POST http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladorProductos/crear
+Content-Type: application/json
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+{
+  "nombre": "Tarta de Queso",
+  "descripcion": "Cremosa tarta de queso con base de galleta",
+  "precio": 5.50,
+  "categoria": "cat-001",
+  "stock": 20
+}
+
+### 13. Actualizar producto
+PUT http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladorProductos/actualizar/prod-001
+Content-Type: application/json
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+{
+  "nombre": "Ensalada César Premium",
+  "descripcion": "Ensalada césar con pollo a la parrilla y parmesano",
+  "precio": 8.90,
+  "categoria": "cat-001",
+  "stock": 30
+}
+
+### 14. Eliminar producto
+DELETE http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladorProductos/eliminar/prod-001
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+
+###############################################
+### CARRITO / PEDIDOS
+###############################################
+### NOTA: Requiere estar autenticado con login primero
+
+### 15. Ver carrito actual
+GET http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladorPedidos/carrito
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+### 16. Agregar producto al carrito
+POST http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladorPedidos/agregar
+Content-Type: application/json
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+{
+  "codProd": "prod-001",
+  "unidades": 2
+}
+
+### 17. Actualizar cantidad de producto en carrito
+PUT http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladorPedidos/actualizar
+Content-Type: application/json
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+{
+  "unidades": {
+    "prod-001": 5,
+    "prod-002": 2
+  }
+}
+
+### 18. Eliminar producto del carrito
+DELETE http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladorPedidos/eliminar/prod-001
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+### 19. Enviar/Finalizar pedido
+POST http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladorPedidos/enviar
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+
+###############################################
+### EJEMPLOS DE ERRORES
+###############################################
+
+### 20. Sin autenticación Basic Auth (debe fallar)
+GET http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladorCategorias/categorias
+
+### 21. Intentar ver carrito sin login (debe fallar)
+GET http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladorPedidos/carrito
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+### 22. Producto inexistente (debe fallar)
+GET http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladorProductos/producto/no-existe
+Authorization: Basic YWRtaW46YWRtaW4xMjM=

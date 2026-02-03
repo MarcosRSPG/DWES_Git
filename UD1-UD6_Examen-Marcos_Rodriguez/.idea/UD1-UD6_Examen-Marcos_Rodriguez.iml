@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="WEB_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/api-server/app" isTestSource="false" packagePrefix="Mrs\ApiServer\" />
+      <sourceFolder url="file://$MODULE_DIR$/mvcexamen/app/config" isTestSource="false" packagePrefix="Mrs\Webcliente\" />
+      <sourceFolder url="file://$MODULE_DIR$/mvcexamen/app/controladores" isTestSource="false" packagePrefix="Mrs\Webcliente\" />
+      <sourceFolder url="file://$MODULE_DIR$/mvcexamen/app/librerias" isTestSource="false" packagePrefix="Mrs\Webcliente\" />
+      <excludeFolder url="file://$MODULE_DIR$/api-server/vendor/brick/math" />
+      <excludeFolder url="file://$MODULE_DIR$/api-server/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/api-server/vendor/ramsey/collection" />
+      <excludeFolder url="file://$MODULE_DIR$/api-server/vendor/ramsey/uuid" />
+      <excludeFolder url="file://$MODULE_DIR$/mvcexamen/vendor/composer" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

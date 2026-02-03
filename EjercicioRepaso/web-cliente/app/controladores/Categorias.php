@@ -1,6 +1,6 @@
 <?php
 
-namespace Mrs\WebCliente;
+namespace Mrs\Webcliente;
 
 class Categorias extends Controlador
 {
