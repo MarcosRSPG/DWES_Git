@@ -1,9 +1,6 @@
 <?php
-session_start();
-require_once '../vendor/autoload.php';
-
 if (!isset($_SESSION['veterinario'])) {
-    header('Refresh: 1; url='.RUTA_URL.'/paginas/login');
+    header('Location: '.RUTA_URL.'auth/login');
     exit;
 }
 ?>

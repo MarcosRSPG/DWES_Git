@@ -18,7 +18,6 @@ class ControladorMascotas extends Controlador
     public function mascotas(): void
     {
         $this->requireBasicAuth();
-        $this->requireAuth();
 
         try {
             $mascotas = GestorMascotas::getMascotas();
@@ -42,7 +41,6 @@ class ControladorMascotas extends Controlador
     public function mascota(string $id = ''): void
     {
         $this->requireBasicAuth();
-        $this->requireAuth();
 
         if (empty($id)) {
             $this->jsonResponse(['error' => 'ID requerido'], 400);
@@ -75,7 +73,6 @@ class ControladorMascotas extends Controlador
     public function crear(): void
     {
         $this->requireBasicAuth();
-        $this->requireAuth();
 
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             $this->jsonResponse(['error' => 'Method not allowed'], 405);
@@ -129,7 +126,6 @@ class ControladorMascotas extends Controlador
     public function actualizar(string $id = ''): void
     {
         $this->requireBasicAuth();
-        $this->requireAuth();
 
         if ($_SERVER['REQUEST_METHOD'] !== 'PUT') {
             $this->jsonResponse(['error' => 'Method not allowed'], 405);
@@ -183,7 +179,6 @@ class ControladorMascotas extends Controlador
     public function eliminar(string $id = ''): void
     {
         $this->requireBasicAuth();
-        $this->requireAuth();
 
         if ($_SERVER['REQUEST_METHOD'] !== 'DELETE') {
             $this->jsonResponse(['error' => 'Method not allowed'], 405);

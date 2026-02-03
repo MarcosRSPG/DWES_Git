@@ -36,12 +36,12 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `mascotas` (
-  `id` int(11) NOT NULL,
+  `id` varchar(255) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `tipo` varchar(30) NOT NULL,
   `fecha_nacimiento` date DEFAULT NULL,
   `foto_url` varchar(255) DEFAULT NULL,
-  `id_persona` int(11) NOT NULL
+  `id_persona` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -49,9 +49,9 @@ CREATE TABLE `mascotas` (
 --
 
 INSERT INTO `mascotas` (`id`, `nombre`, `tipo`, `fecha_nacimiento`, `foto_url`, `id_persona`) VALUES
-(1, 'Rallito', 'tortuga', '2015-09-21', '/public/img/tortuga.jpeg', 1),
-(2, 'Torete', 'agaponi', '2019-01-15', '/public/img/agaponi.jpeg', 2),
-(3, 'Carl', 'gato', '2013-05-07', '/public/img/gato.jpeg', 1);
+('1', 'Rallito', 'tortuga', '2015-09-21', '/public/img/tortuga.jpeg', '1'),
+('2', 'Torete', 'agaponi', '2019-01-15', '/public/img/agaponi.jpeg', '2'),
+('3', 'Carl', 'gato', '2013-05-07', '/public/img/gato.jpeg', '1');
 
 -- --------------------------------------------------------
 
@@ -60,7 +60,7 @@ INSERT INTO `mascotas` (`id`, `nombre`, `tipo`, `fecha_nacimiento`, `foto_url`, 
 --
 
 CREATE TABLE `personas` (
-  `id` int(11) NOT NULL,
+  `id` varchar(255) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `apellidos` varchar(100) DEFAULT NULL,
   `telefono` varchar(20) DEFAULT NULL,
@@ -72,8 +72,8 @@ CREATE TABLE `personas` (
 --
 
 INSERT INTO `personas` (`id`, `nombre`, `apellidos`, `telefono`, `email`) VALUES
-(1, 'Juan', 'Pérez', '600111222', 'juan@test.com'),
-(2, 'Ana', 'López', '600333444', 'ana@test.com');
+('1', 'Juan', 'Pérez', '600111222', 'juan@test.com'),
+('2', 'Ana', 'López', '600333444', 'ana@test.com');
 
 -- --------------------------------------------------------
 
@@ -82,7 +82,7 @@ INSERT INTO `personas` (`id`, `nombre`, `apellidos`, `telefono`, `email`) VALUES
 --
 
 CREATE TABLE `veterinarios` (
-  `id` int(11) NOT NULL,
+  `id` varchar(255) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `email` varchar(100) NOT NULL,
   `clave` varchar(50) NOT NULL
@@ -93,8 +93,8 @@ CREATE TABLE `veterinarios` (
 --
 
 INSERT INTO `veterinarios` (`id`, `nombre`, `email`, `clave`) VALUES
-(1, 'Dr. García', 'garcia@vet.com', '1234'),
-(2, 'Dra. Ruiz', 'ruiz@vet.com', '$2y$10$ETjoHEGl.kEZidljxNPAKeuBft3U/aa3aAdM9Xd9JI7rWFTBYkVQq');
+('1', 'Dr. García', 'garcia@vet.com', '1234'),
+('2', 'Dra. Ruiz', 'ruiz@vet.com', '$2y$10$ETjoHEGl.kEZidljxNPAKeuBft3U/aa3aAdM9Xd9JI7rWFTBYkVQq');
 
 --
 -- Índices para tablas volcadas
@@ -122,25 +122,7 @@ ALTER TABLE `veterinarios`
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `mascotas`
---
-ALTER TABLE `mascotas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT de la tabla `personas`
---
-ALTER TABLE `personas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT de la tabla `veterinarios`
---
-ALTER TABLE `veterinarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+-- (Removido porque los IDs son VARCHAR)
 
 --
 -- Restricciones para tablas volcadas

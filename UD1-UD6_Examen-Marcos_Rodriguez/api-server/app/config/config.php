@@ -19,8 +19,8 @@ define('RUTA_URL', 'http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/
 define('NOMBRESITIO', 'API REST - Gestor Veterinarios');
 
 // ===== AUTENTICACIÓN BASIC AUTH =====
-define('API_BASIC_USER', 'ZHdlcw==');
-define('API_BASIC_PASS', 'ZHdlcw==');
+define('API_BASIC_USER', 'dwes');
+define('API_BASIC_PASS', 'dwes');
 
 // ===== CONFIGURACIÓN ADICIONAL =====
 define('TIMEZONE', 'Europe/Madrid');

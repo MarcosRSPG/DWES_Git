@@ -12,48 +12,9 @@ class ClienteAPI
 
     public function __construct()
     {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-
         $this->apiUrl = API_URL;
         $this->basicUser = 'dwes';
         $this->basicPass = 'dwes';
-    }
-
-    private function getCookiesHeader()
-    {
-        if (empty($_SESSION['api_cookies']) || !is_array($_SESSION['api_cookies'])) {
-            return null;
-        }
-
-        $pares = [];
-        foreach ($_SESSION['api_cookies'] as $name => $value) {
-            $pares[] = $name.'='.urlencode($value);
-        }
-
-        return 'Cookie: '.implode('; ', $pares);
-    }
-
-    private function saveCookiesFromHeaderText($headerText)
-    {
-        if (!isset($_SESSION['api_cookies'])) {
-            $_SESSION['api_cookies'] = [];
-        }
-
-        $lineas = explode("\r\n", $headerText);
-        foreach ($lineas as $linea) {
-            if (stripos($linea, 'Set-Cookie:') === 0) {
-                $cookie = trim(substr($linea, strlen('Set-Cookie:')));
-                $parts = explode(';', $cookie, 2);
-                $par = trim($parts[0]);
-
-                if (strpos($par, '=') !== false) {
-                    list($name, $value) = explode('=', $par, 2);
-                    $_SESSION['api_cookies'][trim($name)] = trim($value);
-                }
-            }
-        }
     }
 
     private function request($metodo, $endpoint, $datos = null)
@@ -64,7 +25,6 @@ class ClienteAPI
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-        curl_setopt($ch, CURLOPT_HEADER, true);
 
         switch (strtoupper($metodo)) {
             case 'POST':
@@ -86,14 +46,13 @@ class ClienteAPI
 
         $headers = [
             'Content-Type: application/json',
-            'Authorization: Basic '.base64_encode($this->basicUser).':'.base64_encode($this->basicPass),
+            'Authorization: Basic '.base64_encode($this->basicUser.':'.$this->basicPass),
         ];
 
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
-        $fullResponse = curl_exec($ch);
+        $response = curl_exec($ch);
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        $headerSize = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
         $error = curl_error($ch);
         curl_close($ch);
 
@@ -105,12 +64,7 @@ class ClienteAPI
             ];
         }
 
-        $headersText = substr($fullResponse, 0, $headerSize);
-        $bodyText = substr($fullResponse, $headerSize);
-
-        $this->saveCookiesFromHeaderText($headersText);
-
-        $data = json_decode($bodyText, true);
+        $data = json_decode($response, true);
 
         return [
             'success' => ($httpCode >= 200 && $httpCode < 300),

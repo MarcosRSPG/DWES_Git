@@ -14,6 +14,6 @@ class Paginas extends Controlador
             'titulo' => NOMBRESITIO,
         ];
 
-        $this->vista('paginas/login', $datos);
+        $this->vista('paginas/inicio', $datos);
     }
 }

@@ -20,7 +20,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($respuesta['success'] && isset($respuesta['data']['veterinario'])) {
             $_SESSION['veterinario'] = $respuesta['data']['veterinario'];
             $ok = 'Login correcto, redirigiendo...';
-            header('Refresh: 1; url='.RUTA_URL.'/paginas/inicio');
+
+            header('Location: '.RUTA_URL.'paginas/inicio');
+            exit;
         } else {
             $error = $respuesta['data']['error'] ?? 'Error en el login';
         }
