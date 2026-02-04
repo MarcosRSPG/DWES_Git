@@ -1,4 +1,4 @@
-@baseUrl = http://localhost/dwes/ud6/mvcapi
+@baseUrl = http://mywww/dwes/ud6/mvcapi
 //@auth basic profesor 1234
 
 ### LISTAR

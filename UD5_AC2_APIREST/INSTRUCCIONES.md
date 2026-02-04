@@ -43,7 +43,7 @@ mysql -h localhost -u root -p test < insert_data.sql
 
 #### Opción C: Script automático en el navegador
 
-1. Abre en el navegador: `http://miwww/UD5_AC2_APIREST/mvcapi/public/setup_data.php`
+1. Abre en el navegador: `http://mywww/UD5_AC2_APIREST/mvcapi/public/setup_data.php`
 2. Este script creará las tablas e insertará los datos automáticamente
 
 **SQL para ejecutar manualmente:**
@@ -87,28 +87,28 @@ INSERT INTO articulos (titulo, contenido) VALUES
 En **mvcapi/app/config/config.php**, verifica:
 
 - Las credenciales de base de datos (DB_HOST, DB_USUARIO, DB_PASSWORD, DB_NOMBRE)
-- Las URLs (RUTA_URL) deben apuntar a tu servidor: `http://miwww/UD5_AC2_APIREST/mvcapi/`
+- Las URLs (RUTA_URL) deben apuntar a tu servidor: `http://mywww/UD5_AC2_APIREST/mvcapi/`
 
 En **mvccurl/app/config/config.php**, verifica:
 
-- Las URLs (RUTA_URL) deben apuntar a tu servidor: `http://miwww/UD5_AC2_APIREST/mvccurl/`
-- La URL de la API (API_BASE_URL) debe apuntar a: `http://miwww/UD5_AC2_APIREST/mvcapi`
+- Las URLs (RUTA_URL) deben apuntar a tu servidor: `http://mywww/UD5_AC2_APIREST/mvccurl/`
+- La URL de la API (API_BASE_URL) debe apuntar a: `http://mywww/UD5_AC2_APIREST/mvcapi`
 
 ### 4. Acceder a los proyectos
 
 **mvcapi (Servidor API REST):**
 
-- Inicio: `http://miwww/UD5_AC2_APIREST/mvcapi/`
-- Contacto: `http://miwww/UD5_AC2_APIREST/mvcapi/Paginas/contacto`
-- Artículos: `http://miwww/UD5_AC2_APIREST/mvcapi/Articulos/index`
-- Alta de coche: `http://miwww/UD5_AC2_APIREST/mvcapi/Paginas/cars_form`
-- API Debug: `http://miwww/UD5_AC2_APIREST/mvcapi/apicar/debug`
+- Inicio: `http://mywww/UD5_AC2_APIREST/mvcapi/`
+- Contacto: `http://mywww/UD5_AC2_APIREST/mvcapi/Paginas/contacto`
+- Artículos: `http://mywww/UD5_AC2_APIREST/mvcapi/Articulos/index`
+- Alta de coche: `http://mywww/UD5_AC2_APIREST/mvcapi/Paginas/cars_form`
+- API Debug: `http://mywww/UD5_AC2_APIREST/mvcapi/apicar/debug`
 
 **mvccurl (Cliente cURL):**
 
-- Inicio (Listado de coches desde API): `http://miwww/UD5_AC2_APIREST/mvccurl/`
-- Contacto: `http://miwww/UD5_AC2_APIREST/mvccurl/Paginas/contacto`
-- Alta de coche: `http://miwww/UD5_AC2_APIREST/mvccurl/Paginas/cars_form`
+- Inicio (Listado de coches desde API): `http://mywww/UD5_AC2_APIREST/mvccurl/`
+- Contacto: `http://mywww/UD5_AC2_APIREST/mvccurl/Paginas/contacto`
+- Alta de coche: `http://mywww/UD5_AC2_APIREST/mvccurl/Paginas/cars_form`
 
 ### 5. Autenticación de la API
 
@@ -152,7 +152,7 @@ Todos los endpoints requieren Basic Auth con usuario: `profesor` y contraseña: 
 - **GET /apicar/cars** - Obtener lista de coches
 
   ```bash
-  curl -u profesor:1234 http://miwww/UD5_AC2_APIREST/mvcapi/apicar/cars
+  curl -u profesor:1234 http://mywww/UD5_AC2_APIREST/mvcapi/apicar/cars
   ```
 
 - **POST /apicar/cars** - Crear nuevo coche
@@ -160,13 +160,13 @@ Todos los endpoints requieren Basic Auth con usuario: `profesor` y contraseña: 
   ```bash
   curl -u profesor:1234 -X POST -H "Content-Type: application/json" \
     -d '{"brand":"Audi","model":"A3","color":"Plateado","owner":"Carlos"}' \
-    http://miwww/UD5_AC2_APIREST/mvcapi/apicar/cars
+    http://mywww/UD5_AC2_APIREST/mvcapi/apicar/cars
   ```
 
 - **GET /apicar/car/{id}** - Obtener coche por ID
 
   ```bash
-  curl -u profesor:1234 http://miwww/UD5_AC2_APIREST/mvcapi/apicar/car/1
+  curl -u profesor:1234 http://mywww/UD5_AC2_APIREST/mvcapi/apicar/car/1
   ```
 
 - **PUT /apicar/car/{id}** - Actualizar coche
@@ -174,13 +174,13 @@ Todos los endpoints requieren Basic Auth con usuario: `profesor` y contraseña: 
   ```bash
   curl -u profesor:1234 -X PUT -H "Content-Type: application/json" \
     -d '{"brand":"Audi","model":"A4","color":"Negro","owner":"Carlos"}' \
-    http://miwww/UD5_AC2_APIREST/mvcapi/apicar/car/1
+    http://mywww/UD5_AC2_APIREST/mvcapi/apicar/car/1
   ```
 
 - **DELETE /apicar/car/{id}** - Eliminar coche
 
   ```bash
-  curl -u profesor:1234 -X DELETE http://miwww/UD5_AC2_APIREST/mvcapi/apicar/car/1
+  curl -u profesor:1234 -X DELETE http://mywww/UD5_AC2_APIREST/mvcapi/apicar/car/1
   ```
 
 - **GET /apicar/debug** - Ver información de depuración de la petición HTTP
@@ -190,11 +190,11 @@ Todos los endpoints requieren Basic Auth con usuario: `profesor` y contraseña: 
 ### Si mvccurl no muestra coches:
 
 1. **Verifica que los datos existan**:
-   - Abre: `http://miwww/UD5_AC2_APIREST/mvccurl/public/test_api.php`
+   - Abre: `http://mywww/UD5_AC2_APIREST/mvccurl/public/test_api.php`
    - Este script te mostrará exactamente qué devuelve la API de mvcapi
 
 2. **Si la API devuelve vacío**:
-   - Ve a `http://miwww/UD5_AC2_APIREST/mvcapi/public/setup_data.php`
+   - Ve a `http://mywww/UD5_AC2_APIREST/mvcapi/public/setup_data.php`
    - Esto insertará automáticamente 5 coches de prueba
 
 3. **Si sigue sin haber datos**:
@@ -204,22 +204,22 @@ Todos los endpoints requieren Basic Auth con usuario: `profesor` y contraseña: 
 
 ### Scripts de diagnóstico:
 
-- **mvcapi**: `http://miwww/UD5_AC2_APIREST/mvcapi/public/diagnostico.php`
+- **mvcapi**: `http://mywww/UD5_AC2_APIREST/mvcapi/public/diagnostico.php`
   - Verifica que todas las clases están disponibles
   - Verifica conexión a BD
   - Verifica que las vistas existen
 
-- **mvccurl**: `http://miwww/UD5_AC2_APIREST/mvccurl/public/diagnostico.php`
+- **mvccurl**: `http://mywww/UD5_AC2_APIREST/mvccurl/public/diagnostico.php`
   - Verifica que cURL está habilitado
   - Verifica que puede conectar con la API
 
-- **Prueba de API**: `http://miwww/UD5_AC2_APIREST/mvccurl/public/test_api.php`
+- **Prueba de API**: `http://mywww/UD5_AC2_APIREST/mvccurl/public/test_api.php`
   - Muestra exactamente qué devuelve la API en formato JSON
   - Útil para ver si hay errores
 
 ### Scripts de utilidad:
 
-- **Setup de datos**: `http://miwww/UD5_AC2_APIREST/mvcapi/public/setup_data.php`
+- **Setup de datos**: `http://mywww/UD5_AC2_APIREST/mvcapi/public/setup_data.php`
   - Crea las tablas automáticamente
   - Inserta 5 coches y 3 artículos de ejemplo
 

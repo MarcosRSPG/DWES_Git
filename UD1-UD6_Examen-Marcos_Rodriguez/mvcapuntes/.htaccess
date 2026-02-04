@@ -1,0 +1,8 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /UD1-UD6_Examen-Marcos_Rodriguez/mvcapuntes/
+    
+    # Redirigir todo al directorio public
+    RewriteRule ^$ public/ [L]
+    RewriteRule (.*) public/$1 [L]
+</IfModule>

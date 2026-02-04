@@ -115,10 +115,10 @@ mysql -u root -p < bd/bd.sql
 
 ```bash
 # Usuario correcto
-curl -u admin:admin123 http://localhost/EjercicioRepaso_Modificado/api-server/controladorproductos/productos
+curl -u admin:admin123 http://mywww/EjercicioRepaso_Modificado/api-server/controladorproductos/productos
 
 # Usuario incorrecto (debe fallar)
-curl -u admin:wrong_pass http://localhost/EjercicioRepaso_Modificado/api-server/controladorproductos/productos
+curl -u admin:wrong_pass http://mywww/EjercicioRepaso_Modificado/api-server/controladorproductos/productos
 ```
 
 **Con Postman:**

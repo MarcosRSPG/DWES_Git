@@ -1,7 +1,7 @@
 <?php
 /**
  * Script para insertar datos de prueba en la BD de mvcapi
- * Accede a este archivo en el navegador: http://miwww/UD5_AC2_APIREST/mvcapi/public/setup_data.php
+ * Accede a este archivo en el navegador: http://mywww/UD5_AC2_APIREST/mvcapi/public/setup_data.php
  */
 
 // Suprimir esto después de usarlo (por seguridad)

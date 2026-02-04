@@ -1,4 +1,4 @@
-@baseUrl = http://localhost/dwes/mvccomposer
+@baseUrl = http://mywww/dwes/mvccomposer
 
 ### LISTAR
 GET {{baseUrl}}/apicar/cars

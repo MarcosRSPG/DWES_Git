@@ -15,7 +15,7 @@ define('DB_CHARSET', 'utf8mb4');
 
 // ===== RUTAS =====
 define('RUTA_APP', dirname(dirname(__DIR__)));
-define('RUTA_URL', 'http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/');
+define('RUTA_URL', 'http://mywww/UD1-UD6_Examen-Marcos_Rodriguez/api-server/');
 define('NOMBRESITIO', 'API REST - Gestor Veterinarios');
 
 // ===== AUTENTICACIÓN BASIC AUTH =====

@@ -1,4 +1,4 @@
-@baseUrl = http://localhost/mvcapi
+@baseUrl = http://mywww/mvcapi
 //@auth basic profesor 1234
 
 ### LISTAR

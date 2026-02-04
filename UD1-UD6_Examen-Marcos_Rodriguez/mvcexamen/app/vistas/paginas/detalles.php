@@ -23,8 +23,7 @@ if (!$mascota) {
 <head>
     <meta charset="UTF-8">
     <title>Detalles de Mascota</title>
-    <link rel="stylesheet" href="<?php echo RUTA_URL; ?>css/estilos.css">
-</head>
+<link rel="stylesheet" href="<?php echo RUTA_URL; ?>/css/estilos.css"></head>
 <body>
 
 <h1>Detalles de la Mascota</h1>

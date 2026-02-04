@@ -1,7 +1,7 @@
 <?php
 /**
  * Script de depuración para mvccurl - muestra qué devuelve la API
- * Accede a: http://miwww/UD5_AC2_APIREST/mvccurl/public/test_api.php.
+ * Accede a: http://mywww/UD5_AC2_APIREST/mvccurl/public/test_api.php.
  */
 
 require_once __DIR__.'/../vendor/autoload.php';

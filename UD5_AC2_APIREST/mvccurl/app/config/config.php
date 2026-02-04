@@ -9,12 +9,12 @@ define('RUTA_APP', dirname(__DIR__));
 
 // Ruta base de ESTE proyecto (mvccurl) para generar enlaces en vistas
 // Ajusta a la carpeta real del cliente:
-define('RUTA_URL', 'http://miwww/UD5_AC2_APIREST/mvccurl');
+define('RUTA_URL', 'http://mywww/UD5_AC2_APIREST/mvccurl');
 
 define('NOMBRESITIO', 'MVC Cliente (cURL) - Consumidor API');
 
 // ---- Config del servidor API (mvcapi) ----
-define('API_BASE_URL', 'http://miwww/UD5_AC2_APIREST/mvcapi');
+define('API_BASE_URL', 'http://mywww/UD5_AC2_APIREST/mvcapi');
 
 // Credenciales Basic Auth (didácticas)
 // IMPORTANTE: en producción siempre HTTPS + usuarios reales

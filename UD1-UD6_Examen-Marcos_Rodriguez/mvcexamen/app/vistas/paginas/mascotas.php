@@ -20,6 +20,7 @@ $mascotas = $respuesta['data']['mascotas'] ?? [];
 <head>
     <meta charset="UTF-8">
     <title>Listado de mascotas</title>
+    <link rel="stylesheet" href="<?php echo RUTA_URL; ?>/css/estilos.css">
 </head>
 <body>
 

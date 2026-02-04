@@ -165,6 +165,6 @@ echo "  - profesor / 1234\n";
 echo "  - usuario / password\n\n";
 
 echo "Para probar:\n";
-echo "  curl -u admin:admin123 http://localhost/EjercicioRepaso_Modificado/api-server/controladorproductos/productos\n\n";
+echo "  curl -u admin:admin123 http://mywww/EjercicioRepaso_Modificado/api-server/controladorproductos/productos\n\n";
 
 echo "=== VERIFICACIÓN COMPLETADA ===\n";

@@ -1,13 +1,16 @@
-### API REST Restaurante - PRUEBA EN CASCADA
-### URL Base: http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public
-### Autenticación Basic Auth: admin:admin123 (Base64: YWRtaW46YWRtaW4xMjM=)
+### ============================================================================
+### API REST VETERINARIA - PRUEBAS EN CASCADA
+### ============================================================================
+### URL Base: http://mywww/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public
+### Autenticación Basic Auth: dwes:dwes (Base64: ZHdlczpkd2Vz)
+### ============================================================================
 
-### ============================================
-### 1. LOGIN - Inicia sesión restaurante
-### ============================================
-POST http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladorauth/login
+### ============================================================================
+### 1. LOGIN - Iniciar sesión como veterinario
+### ============================================================================
+POST http://mywww/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladorauth/login
 Content-Type: application/json
-Authorization: Basic ZHdlcw== ZHdlcw==
+Authorization: Basic ZHdlczpkd2Vz
 
 {
   "email": "garcia@vet.com",
@@ -17,287 +20,329 @@ Authorization: Basic ZHdlcw== ZHdlcw==
 ### Respuesta esperada:
 ### {
 ###   "success": true,
-###   "restaurante": {
-###     "CodRes": "res-001",
-###     "Nombre": "Restaurante El Buen Sabor",
+###   "message": "Login exitoso",
+###   "veterinario": {
+###     "id": "1",
+###     "email": "garcia@vet.com",
+###     "nombre": "Dr. García"
+###   }
+### }
+
+### ============================================================================
+### 2. VERIFICAR SESIÓN - Comprobar que el login fue exitoso
+### ============================================================================
+GET http://mywww/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladorauth/verificar
+Authorization: Basic ZHdlczpkd2Vz
+
+### Respuesta esperada:
+### {
+###   "autenticado": true,
+###   "veterinario": {
+###     "id": "1",
+###     "email": "garcia@vet.com",
+###     "nombre": "Dr. García"
+###   }
+### }
+
+### ============================================================================
+### 3. LISTAR TODAS LAS MASCOTAS - Ver las mascotas existentes en la BD
+### ============================================================================
+GET http://mywww/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladormascotas/mascotas
+Authorization: Basic ZHdlczpkd2Vz
+
+### Respuesta esperada:
+### {
+###   "success": true,
+###   "mascotas": [
+###     {
+###       "id": "1",
+###       "nombre": "Rallito",
+###       "tipo": "tortuga",
+###       "fecha_nacimiento": "2015-09-21",
+###       "foto_url": "/public/img/tortuga.jpeg",
+###       "id_persona": "1"
+###     },
+###     ...
+###   ]
+### }
+### NOTA: Copia uno de los IDs de mascota para los siguientes pasos
+
+### ============================================================================
+### 4. OBTENER UNA MASCOTA ESPECÍFICA - Consultar detalles de una mascota
+### ============================================================================
+GET http://mywww/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladormascotas/mascota/1
+Authorization: Basic ZHdlczpkd2Vz
+
+### Respuesta esperada:
+### {
+###   "success": true,
+###   "mascota": {
+###     "id": "1",
+###     "nombre": "Rallito",
+###     "tipo": "tortuga",
+###     "fecha_nacimiento": "2015-09-21",
+###     "foto_url": "/public/img/tortuga.jpeg",
+###     "id_persona": "1"
+###   }
+### }
+
+### ============================================================================
+### 5. CREAR NUEVA MASCOTA - Registrar una nueva mascota en el sistema
+### ============================================================================
+POST http://mywww/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladormascotas/crear
+Content-Type: application/json
+Authorization: Basic ZHdlczpkd2Vz
+
+{
+  "nombre": "Firulais",
+  "tipo": "perro",
+  "fechaNac": "2022-05-15",
+  "fotoUrl": "/public/img/perro.jpeg",
+  "idPers": "1"
+}
+
+### Respuesta esperada:
+### {
+###   "success": true,
+###   "message": "Mascota creada",
+###   "mascota": {
+###     "id": "uuid-generado",
+###     "nombre": "Firulais",
+###     "tipo": "perro",
+###     "fecha_nacimiento": "2022-05-15",
+###     "foto_url": "/public/img/perro.jpeg",
+###     "id_persona": "1"
+###   }
+### }
+### IMPORTANTE: Copia el ID generado de la respuesta para los siguientes pasos
+
+### ============================================================================
+### 6. ACTUALIZAR MASCOTA - Modificar los datos de la mascota recién creada
+### ============================================================================
+### NOTA: Reemplaza el ID en la URL con el UUID obtenido en el paso anterior
+PUT http://mywww/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladormascotas/actualizar/1edda29c-8935-40d7-b2f8-9ba02af00635
+Content-Type: application/json
+Authorization: Basic ZHdlczpkd2Vz
+
+{
+  "nombre": "Firulais Actualizado",
+  "tipo": "perro labrador",
+  "fechaNac": "2022-05-15",
+  "fotoUrl": "/public/img/perro_labrador.jpeg",
+  "idPers": "1"
+}
+
+### Respuesta esperada:
+### {
+###   "success": true,
+###   "message": "Mascota actualizada"
+### }
+
+### ============================================================================
+### 7. VERIFICAR ACTUALIZACIÓN - Comprobar que los cambios se guardaron
+### ============================================================================
+### NOTA: Reemplaza el ID con el mismo UUID del paso anterior
+GET http://mywww/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladormascotas/mascota/1edda29c-8935-40d7-b2f8-9ba02af00635
+Authorization: Basic ZHdlczpkd2Vz
+
+### Respuesta esperada: Debería mostrar los datos actualizados
+### {
+###   "success": true,
+###   "mascota": {
+###     "id": "uuid",
+###     "nombre": "Firulais Actualizado",
+###     "tipo": "perro labrador",
 ###     ...
 ###   }
 ### }
 
-###############################################
-### 2. VERIFICAR SESIÓN
-### ============================================
-GET http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladorauth/verificar
-Authorization: Basic YWRtaW46YWRtaW4xMjM=
+### ============================================================================
+### 8. LISTAR MASCOTAS ACTUALIZADO - Ver todas las mascotas incluyendo la nueva
+### ============================================================================
+GET http://mywww/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladormascotas/mascotas
+Authorization: Basic ZHdlczpkd2Vz
 
-### Respuesta: {"autenticado": true, "restaurante": {...}}
+### Respuesta esperada: Lista completa con la nueva mascota incluida
 
-###############################################
-### 3. OBTENER CATEGORÍAS
-### ============================================
-GET http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladormascotas/mascotas
-Authorization: Basic YWRtaW46YWRtaW4xMjM=
+### ============================================================================
+### 9. ELIMINAR MASCOTA - Borrar la mascota de prueba creada
+### ============================================================================
+### NOTA: Reemplaza el ID con el UUID de la mascota creada en el paso 5
+DELETE http://mywww/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladormascotas/eliminar/1edda29c-8935-40d7-b2f8-9ba02af00635
+Authorization: Basic ZHdlczpkd2Vz
 
-### Respuesta: {"success": true, "mascotas": [...]}
-### COPIA UNO DE LOS CodCat para usarlo en crear producto
-
-###############################################
-### 4. CREAR NUEVA CATEGORÍA
-### ============================================
-POST http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladormascotas/crear
-Content-Type: application/json
-Authorization: Basic YWRtaW46YWRtaW4xMjM=
-
-{
-  "nombre": "Bebidas Premium",
-  "descripcion": "Bebidas especiales y exclusivas"
-}
-
-### Respuesta: {"success": true, "mascota": {"CodCat": "...", "Nombre": "Bebidas Premium"}}
-
-###############################################
-### 5. OBTENER CATEGORÍA ESPECÍFICA
-### ============================================
-### Reemplaza "cat-004" con el CodCat de la respuesta anterior o de la lista
-GET http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladormascotas/mascota/cat-004
-Authorization: Basic YWRtaW46YWRtaW4xMjM=
-
-### Respuesta: {"success": true, "mascota": {...}}
-
-###############################################
-### 6. OBTENER TODOS LOS PRODUCTOS
-### ============================================
-GET http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladorproductos/productos
-Authorization: Basic YWRtaW46YWRtaW4xMjM=
-
-### Respuesta: {"success": true, "productos": [...]}
-### IMPORTANTE: Copia el CodProd del primer producto para agregar al carrito
-
-###############################################
-### 7. CREAR NUEVO PRODUCTO
-### ============================================
-### Reemplaza "cat-004" con un CodCat válido de paso anterior
-POST http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladorproductos/crear
-Content-Type: application/json
-Authorization: Basic YWRtaW46YWRtaW4xMjM=
-
-{
-  "nombre": "Vino Tinto Reserva",
-  "descripcion": "Vino tinto de la región DO Rioja, año 2018",
-  "precio": 25.99,
-  "stock": 12,
-  "mascota": "cat-004"
-}
-
-### Respuesta: {"success": true, "producto": {"CodProd": "...", "Nombre": "Vino Tinto Reserva"}}
-
-###############################################
-### 8. OBTENER PRODUCTOS POR CATEGORÍA
-### ============================================
-### Reemplaza "cat-001" con un CodCat válido
-GET http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladorproductos/productosmascota/cat-001
-Authorization: Basic YWRtaW46YWRtaW4xMjM=
-
-### Respuesta: {"success": true, "productos": [...]}
-
-###############################################
-### 9. OBTENER PRODUCTO ESPECÍFICO
-### ============================================
-### Reemplaza "prod-013" con un CodProd válido (del paso 6 o 7)
-GET http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladorproductos/producto/prod-013
-Authorization: Basic YWRtaW46YWRtaW4xMjM=
-
-### Respuesta: {"success": true, "producto": {...}}
-
-###############################################
-### 10. VER CARRITO (debe estar vacío)
-### ============================================
-GET http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladorpedidos/carrito
-Authorization: Basic YWRtaW46YWRtaW4xMjM=
-
-### Respuesta: {"success": true, "carrito": {"pedido": null, "lineas": []}}
-
-###############################################
-### 11. AGREGAR PRODUCTO AL CARRITO
-### ============================================
-### Reemplaza "prod-013" con un CodProd válido
-POST http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladorpedidos/agregar
-Content-Type: application/json
-Authorization: Basic YWRtaW46YWRtaW4xMjM=
-
-{
-  "codProd": "prod-013",
-  "unidades": 2
-}
-
-### Respuesta: {"success": true, "message": "Producto agregado al carrito"}
-
-###############################################
-### 12. AGREGAR OTRO PRODUCTO AL CARRITO
-### ============================================
-### Usa otro CodProd diferente al anterior
-POST http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladorpedidos/agregar
-Content-Type: application/json
-Authorization: Basic YWRtaW46YWRtaW4xMjM=
-
-{
-  "codProd": "prod-014",
-  "unidades": 1
-}
-
-### Respuesta: {"success": true, "message": "Producto agregado al carrito"}
-
-###############################################
-### 13. VER CARRITO (con productos)
-### ============================================
-GET http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladorpedidos/carrito
-Authorization: Basic YWRtaW46YWRtaW4xMjM=
-
-### Respuesta: 
+### Respuesta esperada:
 ### {
 ###   "success": true,
-###   "carrito": {
-###     "pedido": {"CodPed": "...", "FechaPedido": "...", "Estado": "abierto", "Total": "..."},
-###     "lineas": [
-###       {"CodProdProd": "...", "Unidades": 2, "PrecioUnitario": "...", "Subtotal": "..."},
-###       {"CodProdProd": "...", "Unidades": 1, "PrecioUnitario": "...", "Subtotal": "..."}
-###     ]
-###   }
+###   "message": "Mascota eliminada"
 ### }
 
-###############################################
-### 14. ACTUALIZAR CANTIDAD EN CARRITO
-### ============================================
-### Cambia las cantidades de los productos en el carrito
-PUT http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladorpedidos/actualizar
+### ============================================================================
+### 10. VERIFICAR ELIMINACIÓN - Comprobar que la mascota fue eliminada
+### ============================================================================
+GET http://mywww/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladormascotas/mascotas
+Authorization: Basic ZHdlczpkd2Vz
+
+### Respuesta esperada: Lista sin la mascota eliminada (vuelve a las 3 originales)
+
+### ============================================================================
+### 11. CREAR MÚLTIPLES MASCOTAS - Registrar varias mascotas para pruebas
+### ============================================================================
+
+### Mascota 1: Gato
+POST http://mywww/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladormascotas/crear
 Content-Type: application/json
-Authorization: Basic YWRtaW46YWRtaW4xMjM=
+Authorization: Basic ZHdlczpkd2Vz
 
 {
-  "unidades": {
-    "prod-013": 3,
-    "prod-014": 2
-  }
+  "nombre": "Michi",
+  "tipo": "gato",
+  "fechaNac": "2021-03-10",
+  "fotoUrl": "/public/img/gato2.jpeg",
+  "idPers": "2"
 }
 
-### Respuesta: {"success": true, "message": "Carrito actualizado"}
+###
 
-###############################################
-### 15. VER CARRITO (con cantidades actualizadas)
-### ============================================
-GET http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladorpedidos/carrito
-Authorization: Basic YWRtaW46YWRtaW4xMjM=
-
-### Respuesta: Debe mostrar las nuevas cantidades (3 y 2)
-
-###############################################
-### 16. ELIMINAR PRODUCTO DEL CARRITO
-### ============================================
-### Elimina el segundo producto (unidades = 0)
-DELETE http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladorpedidos/eliminar/prod-014
-Authorization: Basic YWRtaW46YWRtaW4xMjM=
-
-### Respuesta: {"success": true, "message": "Producto eliminado del carrito"}
-
-###############################################
-### 17. VER CARRITO (solo 1 producto)
-### ============================================
-GET http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladorpedidos/carrito
-Authorization: Basic YWRtaW46YWRtaW4xMjM=
-
-### Respuesta: Debe mostrar solo prod-013 con 3 unidades
-
-###############################################
-### 18. ACTUALIZAR CATEGORÍA
-### ============================================
-### Reemplaza "cat-004" con un CodCat válido
-PUT http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladormascotas/actualizar/cat-004
+### Mascota 2: Hamster
+POST http://mywww/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladormascotas/crear
 Content-Type: application/json
-Authorization: Basic YWRtaW46YWRtaW4xMjM=
+Authorization: Basic ZHdlczpkd2Vz
 
 {
-  "nombre": "Bebidas Premium Actualizado",
-  "descripcion": "Bebidas especiales, exclusivas y premium"
+  "nombre": "Pelusa",
+  "tipo": "hamster",
+  "fechaNac": "2023-11-22",
+  "fotoUrl": "/public/img/hamster.jpeg",
+  "idPers": "2"
 }
 
-### Respuesta: {"success": true, "message": "Categoría actualizada"}
+###
 
-###############################################
-### 19. ACTUALIZAR PRODUCTO
-### ============================================
-### Reemplaza "prod-013" con un CodProd válido
-### Usa una categoría válida (cat-001, cat-002, cat-003 o cat-004)
-PUT http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladorproductos/actualizar/prod-013
+### Mascota 3: Conejo
+POST http://mywww/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladormascotas/crear
 Content-Type: application/json
-Authorization: Basic YWRtaW46YWRtaW4xMjM=
+Authorization: Basic ZHdlczpkd2Vz
 
 {
-  "nombre": "Agua Mineral Premium",
-  "descripcion": "Agua mineral de manantial natural (500ml) - ACTUALIZADO",
-  "precio": 2.50,
-  "stock": 150,
-  "mascota": "cat-002"
+  "nombre": "Copito",
+  "tipo": "conejo",
+  "fechaNac": "2023-01-05",
+  "fotoUrl": "/public/img/conejo.jpeg",
+  "idPers": "1"
 }
 
-### Respuesta: {"success": true, "message": "Producto actualizado"}
+### ============================================================================
+### 12. LISTAR TODAS LAS MASCOTAS - Ver el listado completo actualizado
+### ============================================================================
+GET http://mywww/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladormascotas/mascotas
+Authorization: Basic ZHdlczpkd2Vz
 
-###############################################
-### 20. ENVIAR/FINALIZAR PEDIDO
-### ============================================
-POST http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladorpedidos/enviar
+### Respuesta esperada: Lista con todas las mascotas (originales + las 3 nuevas)
+
+### ============================================================================
+### 13. LOGOUT - Cerrar sesión del veterinario
+### ============================================================================
+POST http://mywww/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladorauth/logout
+Authorization: Basic ZHdlczpkd2Vz
+
+### Respuesta esperada:
+### {
+###   "success": true,
+###   "message": "Sesión cerrada"
+### }
+
+### ============================================================================
+### 14. VERIFICAR SESIÓN DESPUÉS DE LOGOUT - Confirmar que la sesión se cerró
+### ============================================================================
+GET http://mywww/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladorauth/verificar
+Authorization: Basic ZHdlczpkd2Vz
+
+### Respuesta esperada:
+### {
+###   "autenticado": false
+### }
+
+### ============================================================================
+### PRUEBAS DE ERRORES Y VALIDACIONES
+### ============================================================================
+
+### ERROR 1: Sin Basic Auth - Debe devolver 401 Unauthorized
+GET http://mywww/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladormascotas/mascotas
+
+### Respuesta esperada: 401 {"error": "Unauthorized"}
+
+###
+
+### ERROR 2: Basic Auth Incorrecto - Credenciales incorrectas
+GET http://mywww/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladormascotas/mascotas
+Authorization: Basic aW5jb3JyZWN0bzppbmNvcnJlY3Rv
+
+### Respuesta esperada: 401 {"error": "Unauthorized"}
+
+###
+
+### ERROR 3: Login con credenciales incorrectas
+POST http://mywww/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladorauth/login
 Content-Type: application/json
-Authorization: Basic YWRtaW46YWRtaW4xMjM=
+Authorization: Basic ZHdlczpkd2Vz
 
-### Respuesta: {"success": true, "message": "Pedido enviado correctamente"}
+{
+  "email": "noexiste@vet.com",
+  "clave": "mala"
+}
 
-###############################################
-### 21. VER CARRITO (debe estar vacío nuevamente)
-### ============================================
-GET http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladorpedidos/carrito
-Authorization: Basic YWRtaW46YWRtaW4xMjM=
+### Respuesta esperada: 401 {"error": "Credenciales inválidas"}
 
-### Respuesta: {"success": true, "carrito": {"pedido": null, "lineas": []}}
-### El pedido anterior cambió de estado a "enviado" y se creó uno nuevo vacío
+###
 
-###############################################
-### 22. LOGOUT - Cierra sesión
-### ============================================
-POST http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladorauth/logout
-Authorization: Basic YWRtaW46YWRtaW4xMjM=
+### ERROR 4: Mascota inexistente - ID que no existe
+GET http://mywww/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladormascotas/mascota/id-que-no-existe-999
+Authorization: Basic ZHdlczpkd2Vz
 
-### Respuesta: {"success": true, "message": "Sesión cerrada"}
+### Respuesta esperada: 404 {"error": "Mascota no encontrada"}
 
-###############################################
-### 23. VERIFICAR SESIÓN (debe estar vacía)
-### ============================================
-GET http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladorauth/verificar
-Authorization: Basic YWRtaW46YWRtaW4xMjM=
+###
 
-### Respuesta: {"autenticado": false}
+### ERROR 5: Crear mascota sin campo requerido (sin nombre)
+POST http://mywww/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladormascotas/crear
+Content-Type: application/json
+Authorization: Basic ZHdlczpkd2Vz
 
-###############################################
-### PRUEBAS DE ERROR
-###############################################
+{
+  "tipo": "perro",
+  "fechaNac": "2022-05-15",
+  "fotoUrl": "/public/img/perro.jpeg",
+  "idPers": "1"
+}
 
-### ERROR 1: Sin Basic Auth (debe fallar)
-GET http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladorproductos/productos
+### Respuesta esperada: 400 {"error": "Campo nombre requerido"}
 
-### Respuesta: 401 {"error": "Unauthorized"}
+###
 
-### ERROR 2: Sin sesión de login (después de logout)
-GET http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladorpedidos/carrito
-Authorization: Basic YWRtaW46YWRtaW4xMjM=
+### ERROR 6: Actualizar mascota inexistente
+PUT http://mywww/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladormascotas/actualizar/id-que-no-existe-999
+Content-Type: application/json
+Authorization: Basic ZHdlczpkd2Vz
 
-### Respuesta: 401 {"error": "Authentication required"}
+{
+  "nombre": "Test",
+  "tipo": "test",
+  "fechaNac": "2022-01-01",
+  "fotoUrl": "/test.jpg",
+  "idPers": "1"
+}
 
-### ERROR 3: Producto inexistente
-GET http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladorproductos/producto/no-existe-123
-Authorization: Basic YWRtaW46YWRtaW4xMjM=
+### Respuesta esperada: 404 {"error": "Mascota no encontrada"}
 
-### Respuesta: 404 {"error": "Producto no encontrado"}
+###
 
-### ERROR 4: Categoría inexistente
-GET http://localhost/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladormascotas/mascota/no-existe-123
-Authorization: Basic YWRtaW46YWRtaW4xMjM=
+### ERROR 7: Método no permitido (GET en lugar de POST para crear)
+GET http://mywww/UD1-UD6_Examen-Marcos_Rodriguez/api-server/public/controladormascotas/crear
+Authorization: Basic ZHdlczpkd2Vz
 
-### Respuesta: 404 {"error": "Categoría no encontrada"}
+### Respuesta esperada: 405 {"error": "Method not allowed"}
+
+### ============================================================================
+### FIN DE LAS PRUEBAS EN CASCADA
+### ============================================================================

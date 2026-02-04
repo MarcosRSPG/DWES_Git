@@ -15,7 +15,7 @@ define('DB_CHARSET', 'utf8mb4');
 
 // ===== RUTAS =====
 define('RUTA_APP', dirname(dirname(__DIR__)));
-define('RUTA_URL', 'http://localhost/EjercicioRepaso/api-server/');
+define('RUTA_URL', 'http://mywww/EjercicioRepaso/api-server/');
 define('NOMBRESITIO', 'API REST - Gestor Restaurantes');
 
 // ===== AUTENTICACIÓN BASIC AUTH =====

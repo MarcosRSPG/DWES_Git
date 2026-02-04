@@ -10,6 +10,7 @@ if (!isset($_SESSION['veterinario'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Página estática de Quienes somos</title>
+    <link rel="stylesheet" href="<?php echo RUTA_URL; ?>/css/estilos.css">
 </head>
 <body>
 
